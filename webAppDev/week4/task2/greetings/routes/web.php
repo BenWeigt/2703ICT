@@ -12,18 +12,9 @@
 */
 
 Route::get('/', function(){
-	return view('welcome');
+	return view('greetingForm');
 });
 
-Route::get('greeting', function(){
-	return 'Hello!';
-});
-
-// Not needed?
-Route::get('product', function(){
-	return 'Code to list all products.';
-});
-
-Route::get('user/{name}', function($sName){
-	return 'Hello '.$sName.'!';
+Route::post('/', function(){
+	return view('greeting', ['name' => $_POST['name'], 'age' => $_POST['age']]);
 });
