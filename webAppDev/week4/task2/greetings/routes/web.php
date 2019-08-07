@@ -20,11 +20,10 @@ Route::get('greeting', function(){
 });
 
 // Not needed?
-Route::get('greeting', function(){
-	return 'Hello!';
+Route::get('product', function(){
+	return 'Code to list all products.';
 });
 
-// Not needed?
 Route::get('user/{name}', function($sName){
 	return 'Hello '.$sName.'!';
 });
