@@ -1,1 +1,9 @@
-/task1
+/*
+!.gitignore
+!task2/
+task2/*
+!task2/greetings/
+task2/greetings/*
+!task2/greetings/routes/
+task2/greetings/routes/*
+!task2/greetings/routes/web.php
