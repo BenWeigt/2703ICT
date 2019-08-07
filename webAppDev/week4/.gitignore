@@ -18,3 +18,6 @@ task3/foreach/routes/*
 !task3/foreach/resources/
 task3/foreach/resources/*
 !task3/foreach/resources/views/
+!task3/foreach/public/
+task3/foreach/public/*
+!task3/foreach/public/*/
