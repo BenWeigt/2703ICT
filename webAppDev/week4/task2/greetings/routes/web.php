@@ -16,5 +16,5 @@ Route::get('/', function(){
 });
 
 Route::post('/', function(){
-	return view('greeting', ['name' => $_POST['name'], 'age' => $_POST['age']]);
+	return view('greeting', ['name' => request('name'), 'age' => request('age')]);
 });

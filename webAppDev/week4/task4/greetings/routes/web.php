@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+	return view('greetingForm');
+});
+
+Route::post('/', function(){
+	return view('greeting', ['name' => request('name'), 'age' => request('age')]);
 });
