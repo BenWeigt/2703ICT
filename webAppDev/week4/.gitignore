@@ -7,3 +7,14 @@ task2/greetings/*
 !task2/greetings/routes/
 task2/greetings/routes/*
 !task2/greetings/routes/web.php
+
+!task3/
+task3/*
+!task3/foreach/
+task3/foreach/*
+!task3/foreach/routes/
+task3/foreach/routes/*
+!task3/foreach/routes/web.php
+!task3/foreach/resources/
+task3/foreach/resources/*
+!task3/foreach/resources/views/
