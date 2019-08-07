@@ -29,45 +29,6 @@
     </nav>
     <section class="container-fluid">
         <div class="row">
-
-            <?php
-                  $file = $_GET['file'];
-                  // echo "<b>$file:</b><br>\n";
-                
-                  // Check a file name was given
-                  if ( empty($file) || $file == "" ) {
-                      echo "Missing filename.<br>\n";
-                      exit;
-                  }
-                
-                    // Check file path is allowed
-                    /**
-                     * Concerns:
-                     * - Overlong encoding
-                     * - Nul byte
-                     * - '/' checks fail if server is Win
-                     * - Escaping/mutating after checks is dangerous
-                     * - Should probably be using multibyte string extension
-                     */
-                  if ( strncmp($file, "/", 1) == 0 || strstr($file, "../") ) {
-                      echo "File name is not allowed: $file.<br>\n";
-                      exit;
-                  }
-                
-                  // Sanitise file name (unnecessary here?)
-                  $file = EscapeShellCmd(substr($file, 0, 40));
-                
-                  // Check file exists
-                  if ( !file_exists($file) || !is_file($file) ) {
-                      echo "File not found or not printable: $file.<br>\n";
-                      exit;
-                  }
-                
-                  // Attempt to open file
-                  echo "allowed: ". $file;
-            ?>
-
-
             <div class="col-sm-4 new-post">
                 <form method="GET" action="">
                     <div class="form-group">
