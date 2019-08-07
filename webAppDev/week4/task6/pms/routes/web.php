@@ -13,23 +13,18 @@
 
 require(app_path().'/pms.php');  // The file containing the pms array is in the app directory. 
                                  // app_path() give us the path the the app directory
-
-// To do: Display search form
 Route::get('/', function()
 {
-  // Remove the line below, and implement your own code.
-	dd("Welcome to PMS, there is a lot to do, so let's get on with it");
+	return view('search');
 });
 
-
-// To do: Perform search and display results
 Route::get('search', function()
 {
-  // Fetch form data
-
-  // call search() to perform search
-
-  // call view to display search result
+	$name = request('name');
+	$year = request('year');
+	$state = request('state');
+	$arrResults = search($name, $year, $state);
+  return view('results', ['results' => $arrResults]);
 });
 
 
