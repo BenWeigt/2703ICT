@@ -11,6 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+	return view('welcome');
+});
+
+Route::get('greeting', function(){
+	return 'Hello!';
+});
+
+// Not needed?
+Route::get('greeting', function(){
+	return 'Hello!';
+});
+
+// Not needed?
+Route::get('user/{name}', function($sName){
+	return 'Hello '.$sName.'!';
 });
