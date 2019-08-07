@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- TIL bootstrap supports integrity attrs, which prompt the browser to hash the resource and match against the supplied to prevent middle man attacks.
+         They also supply CORS friendly headers, so we can dig into the scripts a little via js. 👍 -->
+    
+    <link rel="stylesheet" href="index.css">
+
+    <title>T̩̮͍̞̱̻̏ͩͬa̺̮̹̭̍͐̀ͅş̠̹͓̦͓̂͌ͧk̘͇̘̹̣͙͓̓̌͐͘ ̧̻͙̌̚3̣̼̩̫̐̀̓̅ͣͭ</title><!-- Some unicode fun -->
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="#">Social Network</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse nav navbar-nav" style="justify-content: flex-end;" id="navbarSupportedContent">
+            <a class="nav-item nav-link" href="#">Photos</a>
+            <a class="nav-item nav-link" href="#">Friends</a>
+            <a class="nav-item nav-link" href="#">Login</a>
+        </div>
+    </nav>
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 new-post">
+                <form method="GET" action="">
+                    <div class="form-group">
+                        <label for="new-post-name">Name</label>
+                        <input type="text" name="name" class="form-control" id="new-post-name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-post-msg">Message</label>
+                        <textarea name="msg" class="form-control" id="new-post-msg" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="display: block; margin: auto;">Send Post</button>
+                </form>
+            </div>
+            <div id="posts" class="col-sm-8 posts">
+                Firstname Lastname
+                <template id="template-post">
+                    <div class="row post">
+                        <div class="col-sm-4">
+                            <img class="post-img" src="">
+                        </div>
+                        <div class="col-sm-8 post-info">
+                            <span class="post-info-date"></span><br>
+                            <span class="post-info-msg"></span>
+                        </div>
+                    </div>
+                </template>
+                <script>
+                    window.addEventListener('DOMContentLoaded', ()=>{
+                        let arrPosts = window.posts || [
+                            {img: 'https://source.unsplash.com/random/500x300?a=1', date: 'December 17, 2015 03:24:00', msg: 'Message 1'},
+                            {img: 'https://source.unsplash.com/random/500x300?b=2', date: 'December 17, 2016 03:24:00', msg: 'Message 2'},
+                            {img: 'https://source.unsplash.com/random/500x300?c=3', date: 'December 17, 2017 03:24:00', msg: 'Message 3'},
+                            {img: 'https://source.unsplash.com/random/500x300?d=4', date: 'December 17, 2018 03:24:00', msg: 'Message 4'},
+                        ];
+
+                        // Include postback
+                        let urlSearchParams = new URLSearchParams(window.location.search);
+                        if (urlSearchParams.get('name'))
+                        {
+                            arrPosts.unshift({img: 'https://source.unsplash.com/random/500x300', date: (new Date()).toUTCString(), msg: urlSearchParams.get('name').trim()+' said: '+urlSearchParams.get('msg')});
+                        }
+
+                        let nPosts = document.getElementById('posts');
+                        let nTemplage = document.getElementById('template-post');
+                        for (let i = 0; i < arrPosts.length; i++)
+                        {
+                            const oPost = arrPosts[i];
+                            let nPost = document.importNode(nTemplage.content, true);
+                            nPost.querySelector('.post-img').src = oPost.img;
+                            nPost.querySelector('.post-info-date').innerText = oPost.date;
+                            nPost.querySelector('.post-info-msg').innerText = oPost.msg;
+                            nPosts.appendChild(nPost);
+                        }
+                    });                   
+                </script>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
