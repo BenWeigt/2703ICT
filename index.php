@@ -21,8 +21,10 @@
 </ul>
 <ul>
 		<li><a href="/webAppDev/week4/task1/blank/public">Week 4: Task 1</a></li>
-		<li><a href="/webAppDev/week4/task1/greetings/public/greeting">Week 4: Task 2 (Greeting)</a></li>
-		<li><a href="/webAppDev/week4/task1/greetings/public/user/Ben">Week 4: Task 2 (User Greeting)</a></li>
+		<li><a href="/webAppDev/week4/task2/greetings/public/greeting">Week 4: Task 2 (Greeting)</a></li>
+        <li><a href="/webAppDev/week4/task2/greetings/public/user/Ben">Week 4: Task 2 (User Greeting)</a></li>
+        <li><a href="/webAppDev/week4/task3/foreach/public/?title=PHP%20and%20MySQL&author=Simon%20Stobart%20and%20David%20Parsons&year=2008&url=www.cengage.co.uk/stobart/&pages=634">Week 4: Task 3</a></li>
+        
 </ul>
 
 

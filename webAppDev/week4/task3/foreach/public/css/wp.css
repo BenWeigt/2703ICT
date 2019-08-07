@@ -42,11 +42,7 @@ a:hover { text-decoration: underline; }
 
 .antispam { display:none;}
 
-table > tr:nth-of-type(2) > td
-{
-	background: #ffffff;
-}
-table > tr:nth-of-type(2) > td:nth-of-type(even)
+table > tbody > tr:nth-child(2n+3) > td
 {
 	background: #70ace4;
 }
