@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Web Programming Examples</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/wp.css')}}">
-</head>
+@extends('layouts/master')
 
-<body>
+@section('title')
+Web Programming Examples
+@endsection
+
+@section('body')
   <form method="post">
     {{csrf_field()}}
   <table>
@@ -15,4 +13,4 @@
     <tr><td colspan=2><input type="submit" value="Submit"></td></tr>
   </table>
   </form>
-</body>
+@endsection
