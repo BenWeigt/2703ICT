@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<!-- Home page of PM database search example. -->
-<html>
-<head>
-  <title>Associative array search example</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="styles/wp.css">
-</head>
+@extends('layouts/master')
 
-<body>
-  <h2>Australian Prime Ministers</h2>
+@section('form')
   <h3>Query</h3>
-  <?= isset($_GET['error']) ? '<p class="alert">'.$_GET['error'].'</p>' : ''?>
+	
+  {{-- isset($_GET['error']) ? '<p class="alert">'.$_GET['error'].'</p>' : ''?> --}}
+
   <form method="get" action="search">
 		{{csrf_field()}}
 		<table>
@@ -21,10 +15,4 @@
 												<input type="reset" value="Reset"></td></tr>
 		<table>
   </form>
-  <hr>
-  <p>
-    Source:
-    <a href="show.php?file=index.html">index.html</a> 
-  </p>
-</body>
-</html>
+@endsection

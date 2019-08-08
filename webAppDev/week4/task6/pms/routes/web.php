@@ -24,7 +24,7 @@ Route::get('search', function()
 	$year = request('year');
 	$state = request('state');
 	$arrResults = search($name, $year, $state);
-  return view('results', ['results' => $arrResults]);
+  return view('results', ['results' => $arrResults, 'search' => trim($name.' '.$year.' '.$state)]);
 });
 
 

@@ -24,7 +24,7 @@
     <li><a href="/webAppDev/week4/task2/greetings/public">Week 4: Task 2</a></li>
     <li><a href="/webAppDev/week4/task3/foreach/public/?title=PHP%20and%20MySQL&author=Simon%20Stobart%20and%20David%20Parsons&year=2008&url=www.cengage.co.uk/stobart/&pages=634">Week 4: Task 3</a></li>
     <li><a href="/webAppDev/week4/task4/greetings/public/">Week 4: Task 4</a></li>
-		<li><a href="/webAppDev/week4/task5/assoc-laravel/public/">Week 4: Task 5</a></li>
+		<li><a href="/webAppDev/week4/task6/pms/public/">Week 4: Task 6</a></li>
 </ul>
 
 
