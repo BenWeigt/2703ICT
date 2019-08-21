@@ -1,0 +1,86 @@
+a)
+A blog management site has a set of blogs. Each
+blog has a title and a creator and a set of articles. Each article has a
+headline, a text and an author, and appears in a single blog. (creators ~ authors ?)
+	Table Blogs
+		id (int - primary)
+		creator_id (int)
+		title (varchar)
+
+	Table Articles
+		id (int - primary)
+		blog_id (int)
+		author_id (int)
+		headline (varchar)
+		text (longtext)
+
+	Table Users
+		id (int - primary)
+
+
+b)
+A newspaper has a set of (daily) issues.
+Each issue has a set of articles. Each article has a headline, a text, an
+author and a set of photos, and appears in a single issue. Each photo has
+a caption, a photographer and an image, and may appear in different
+articles.
+
+	Table Issues
+		id (int - primary)
+		date (date)
+
+	Table Articles
+		id (int - primary)
+		issue_id (int)
+		author_id (int)
+		headline (varchar)
+		text (longtext)
+
+	Table ArticlePhotos
+		article_id (int - composite)
+		photo_id (int - composite)
+
+	Table Photos
+		id (int - primary)
+		photographer_id (int)
+		caption (shorttext)
+		image (blob)
+
+	Table Authors
+		id (int - primary)
+		...
+
+	Table Photographers
+		id (int - primary)
+		...
+
+c)
+Online journal example. A journal has a name, a date, and a set of
+articles. Each article has a title, a date, a set of authors, a body, and a set
+of references (which are themselves articles). Each author has a name
+and an affiliation. An author may contribute to different articles and the
+same article may be referenced in different articles.
+
+	Table Journals
+		id (int - primary)
+		name (varchar)
+		date (date)
+	
+	Table Articles
+		id (int - primary)
+		title (varchar)
+		date (date)
+		body (longtext)
+
+	Table Authors
+		id (int - primary)
+		name (varchar)
+		affiliation (?)
+
+	Table ArticleAuthors
+		article_id (int - composite)
+		author_id (int - composite)
+
+	Table ArticleReferences
+		article_id (int - composite)
+		reference_article_id (int - composite)
