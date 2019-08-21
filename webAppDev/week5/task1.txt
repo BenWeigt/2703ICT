@@ -17,7 +17,6 @@ headline, a text and an author, and appears in a single blog. (creators ~ author
 	Table Users
 		id (int - primary)
 
-
 b)
 A newspaper has a set of (daily) issues.
 Each issue has a set of articles. Each article has a headline, a text, an
