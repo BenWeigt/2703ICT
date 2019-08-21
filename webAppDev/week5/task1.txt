@@ -1,16 +1,18 @@
+Task 1 – Produce Database Designs for the following problems
+
 a)
 A blog management site has a set of blogs. Each
 blog has a title and a creator and a set of articles. Each article has a
 headline, a text and an author, and appears in a single blog. (creators ~ authors ?)
 	Table Blogs
 		id (int - primary)
-		creator_id (int)
+		creator_id (int - foreign key Users.id)
 		title (varchar)
 
 	Table Articles
 		id (int - primary)
-		blog_id (int)
-		author_id (int)
+		blog_id (int - foreign key Blog.id)
+		author_id (int - foreign key Users.id)
 		headline (varchar)
 		text (longtext)
 
@@ -30,14 +32,14 @@ articles.
 
 	Table Articles
 		id (int - primary)
-		issue_id (int)
-		author_id (int)
+		issue_id (int - foreign key Issues.id)
+		author_id (int - foreign key Authors.id)
 		headline (varchar)
 		text (longtext)
 
 	Table ArticlePhotos
-		article_id (int - composite)
-		photo_id (int - composite)
+		article_id (int - composite - foreign key Articles.id)
+		photo_id (int - composite - foreign key Photos.id)
 
 	Table Photos
 		id (int - primary)
@@ -77,9 +79,9 @@ same article may be referenced in different articles.
 		affiliation (?)
 
 	Table ArticleAuthors
-		article_id (int - composite)
-		author_id (int - composite)
+		article_id (int - composite - foreign key Articles.id)
+		author_id (int - composite - foreign key Authors.id)
 
 	Table ArticleReferences
-		article_id (int - composite)
-		reference_article_id (int - composite)
+		article_id (int - composite - foreign key Articles.id)
+		reference_article_id (int - composite - foreign key Articles.id)
