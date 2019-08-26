@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+	return redirect('/items');
 });
+Route::get('/items', function(){
+	return view('items', ['items' => DB::select('SELECT * FROM item')]);
+});
+
+
+
+
