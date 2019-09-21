@@ -4,7 +4,7 @@ namespace grubly\Http\Controllers;
 
 use Illuminate\Http\Request;
 use grubly\Product;
-use grubly\Manufacturer;
+use grubly\Restaurant;
 
 class ProductController extends Controller
 {
@@ -31,7 +31,7 @@ class ProductController extends Controller
 	 */
 	public function create()
 	{
-		return view('products.create', ['manufacturers' => Manufacturer::all()]);
+		return view('products.create', ['restaurants' => Restaurant::all()]);
 	}
 
 	/**
@@ -45,12 +45,12 @@ class ProductController extends Controller
 		$this->validate($request, [
 			'name' => 'required|max:255',
 			'price' => 'required|numeric|min:1',
-			'manufacturer' => 'exists:manufacturers,id'
+			'restaurant' => 'exists:restaurants,id'
 		]);
 		$product = new Product();
 		$product->name = $request->name;
 		$product->price = $request->price;
-		$product->manufacturer_id = $request->manufacturer;
+		$product->restaurant_id = $request->restaurant;
 		$product->save();
 		return redirect('product/'.$product->id);
 	}
@@ -76,7 +76,7 @@ class ProductController extends Controller
 	public function edit($id)
 	{
 		$product = Product::find($id);
-		return view('products.edit', ['product' => $product, 'manufacturers' => Manufacturer::all()]);
+		return view('products.edit', ['product' => $product, 'restaurants' => Restaurant::all()]);
 	}
 
 	/**
@@ -91,12 +91,12 @@ class ProductController extends Controller
 		$this->validate($request, [
 			'name' => 'required|max:255',
 			'price' => 'required|numeric|min:1',
-			'manufacturer' => 'exists:manufacturers,id'
+			'restaurant' => 'exists:restaurants,id'
 		]);
 		$product = Product::find($id);
 		$product->name = $request->name;
 		$product->price = $request->price;
-		$product->manufacturer_id = $request->manufacturer;
+		$product->restaurant_id = $request->restaurant;
 		$product->save();
 		return redirect('product/'.$product->id);
 	}

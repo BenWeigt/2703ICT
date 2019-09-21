@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ManufacturersTableSeeder extends Seeder
+class RestaurantsTableSeeder extends Seeder
 {
 	/**
 	 * Run the database seeds.
@@ -12,13 +12,13 @@ class ManufacturersTableSeeder extends Seeder
 	public function run()
 	{
 		// name
-		DB::table('manufacturers')->insert([
+		DB::table('restaurants')->insert([
 			'name' => 'Sennheiser'
 		]);
-		DB::table('manufacturers')->insert([
+		DB::table('restaurants')->insert([
 			'name' => 'AKG'
 		]);
-		DB::table('manufacturers')->insert([
+		DB::table('restaurants')->insert([
 			'name' => 'HIFIMAN'
 		]);		
 	}

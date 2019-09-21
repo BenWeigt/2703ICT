@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
 			$table->bigIncrements('id');
 			$table->string('name');
 			$table->float('price');
-			$table->integer('manufacturer_id');
+			$table->integer('restaurant_id');
 		});
 	}
 

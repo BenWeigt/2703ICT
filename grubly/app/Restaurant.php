@@ -4,7 +4,7 @@ namespace grubly;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Manufacturer extends Model
+class Restaurant extends Model
 {
 	public $timestamps = false;
 	

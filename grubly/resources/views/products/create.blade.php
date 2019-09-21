@@ -20,12 +20,12 @@
 						{{csrf_field()}}
 						<p><label>Name: </label><input type="text" name="name" value="{{old('name')}}"></p>
 						<p><label>Price: </label><input type="text" name="price" value="{{old('price')}}"></p>
-						<p><select name="manufacturer">
-						@foreach ($manufacturers as $manufacturer)
-							@if(old('manufacturer') && $manufacturer->id == old('manufacturer'))
-								<option value="{{$manufacturer->id}}" selected="selected">{{$manufacturer->name}}</option>
+						<p><select name="restaurant">
+						@foreach ($restaurants as $restaurant)
+							@if(old('restaurant') && $restaurant->id == old('restaurant'))
+								<option value="{{$restaurant->id}}" selected="selected">{{$restaurant->name}}</option>
 							@else
-								<option value="{{$manufacturer->id}}">{{$manufacturer->name}}</option>
+								<option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
 							@endif
 						@endforeach
 						</select></p>

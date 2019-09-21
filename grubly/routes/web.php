@@ -1,6 +1,6 @@
 <?php
 	// Const for simplifying link creation. Update if project is installed or moved.
-	define('REL_DIR', '/week8/grubly/public');
+	define('REL_DIR', '/2703ICT/grubly/public');
 /*
 |--------------------------------------------------------------------------
 | Web Routes

@@ -19,16 +19,16 @@
 							<span style="font-weight: bold; font-style: italic; color: red;">{{$errors->first('price')}}</span>
 						</p>
 						<p>
-							<select name="manufacturer">
-							@foreach ($manufacturers as $manufacturer)
-								@if(old('manufacturer') && old('manufacturer') == $manufacturer->id || !old('manufacturer') && $manufacturer->id == $product->manufacturer_id)
-									<option value="{{$manufacturer->id}}" selected="selected">{{$manufacturer->name}}</option>
+							<select name="restaurant">
+							@foreach ($restaurants as $restaurant)
+								@if(old('restaurant') && old('restaurant') == $restaurant->id || !old('restaurant') && $restaurant->id == $product->restaurant_id)
+									<option value="{{$restaurant->id}}" selected="selected">{{$restaurant->name}}</option>
 								@else
-									<option value="{{$manufacturer->id}}">{{$manufacturer->name}}</option>
+									<option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
 								@endif
 							@endforeach
 							</select>
-							<span style="font-weight: bold; font-style: italic; color: red;">{{$errors->first('manufacturer')}}</span>
+							<span style="font-weight: bold; font-style: italic; color: red;">{{$errors->first('restaurant')}}</span>
 						</p>
 						<input type="submit" value="Update">
 					</form>

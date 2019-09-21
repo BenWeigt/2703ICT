@@ -8,7 +8,7 @@ class Product extends Model
 {
 	public $timestamps = false;
 	
-  function manufacturer() {
-		return $this->belongsTo('grubly\Manufacturer');
+  function restaurant() {
+		return $this->belongsTo('grubly\Restaurant');
 	}
 }

@@ -9,7 +9,7 @@
 				<div class="card-body">
 					<h1>{{$product->name}}</h1>
 					<p>{{$product->price}}</p>
-					<p>{{$product->manufacturer->name}}</p>
+					<p>{{$product->restaurant->name}}</p>
 					@auth
 						<p>
 							<a href=' {{url("product/$product->id/edit")}}'>Edit</a>
