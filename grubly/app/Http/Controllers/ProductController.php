@@ -11,6 +11,7 @@ class ProductController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth', ['except'=>['index','show']]);
+		$this->authorizeResource(Product::class);
 	}
 		
 	/**
@@ -58,24 +59,22 @@ class ProductController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Product $product
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id)
+	public function show(Product $product)
 	{
-		$product = Product::find($id);
 		return view('products.show', ['product' => $product]);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Product $product
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id)
+	public function edit(Product $product)
 	{
-		$product = Product::find($id);
 		return view('products.edit', ['product' => $product, 'restaurants' => Restaurant::all()]);
 	}
 
@@ -83,17 +82,16 @@ class ProductController extends Controller
 	 * Update the specified resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
+	 * @param  Product $product
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request, Product $product)
 	{
 		$this->validate($request, [
 			'name' => 'required|max:255',
 			'price' => 'required|numeric|min:1',
 			'restaurant' => 'exists:restaurants,id'
 		]);
-		$product = Product::find($id);
 		$product->name = $request->name;
 		$product->price = $request->price;
 		$product->restaurant_id = $request->restaurant;
@@ -104,12 +102,11 @@ class ProductController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  Product $product
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy(Product $product)
 	{
-		$product = Product::find($id);
 		$product->delete();
 		return redirect('product');
 	}

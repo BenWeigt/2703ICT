@@ -11,14 +11,14 @@ class RestaurantPolicy
 	use HandlesAuthorization;
 	
 	/**
-	 * Determine whether the user can view any restaurants.
+	 * Determine whether the user can view all restaurants.
 	 *
 	 * @param  \grubly\User  $user
 	 * @return mixed
 	 */
-	public function viewAny(User $user)
+	public function viewAll(User $user)
 	{
-		return true;
+		return !!($user->type === 'administrator');
 	}
 
 	/**
@@ -28,9 +28,9 @@ class RestaurantPolicy
 	 * @param  \grubly\Restaurant  $restaurant
 	 * @return mixed
 	 */
-	public function view(User $user, Restaurant $restaurant)
+	public function view(?User $user, Restaurant $restaurant)
 	{
-		return true;
+		return !!($restaurant->verified || (!empty($user) && ($user->type === 'administrator' || $user->id === $restaurant->manager->id)));
 	}
 
 	/**

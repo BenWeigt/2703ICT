@@ -9,6 +9,6 @@ class Product extends Model
 	public $timestamps = false;
 	
   function restaurant() {
-		return $this->belongsTo('grubly\Restaurant');
+		return $this->hasOne('grubly\Restaurant');
 	}
 }

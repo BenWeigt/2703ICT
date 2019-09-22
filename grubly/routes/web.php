@@ -12,12 +12,12 @@
 |
 */
 
-Route::get('/', function () {
-	return view('home');
-});
-
-Route::resource('product', 'ProductController');
-Route::resource('restaurant', 'RestaurantController');
+// Generates all authentication routes
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Root gets handled by RestaurantController->index and is also given the name 'home' for ease of redirects
+Route::get('/', 'RestaurantController@index')->name('home');
+// Connect ProductController and RestaurantController CRUD
+Route::resources([
+	'products' => 'ProductController',
+	'restaurants' => 'RestaurantController'
+]);

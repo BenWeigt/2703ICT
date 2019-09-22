@@ -9,6 +9,11 @@ use grubly\Restaurant;
 
 class RestaurantController extends Controller
 {
+	public function __construct()
+	{
+		$this->authorizeResource(Restaurant::class);
+	}
+		
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -20,7 +25,7 @@ class RestaurantController extends Controller
 		$data = ['restaurants' => Restaurant::allVerified()];
 
 		// Administrators can view unverified restaurants
-		if (!empty(Auth::user()) && Auth::user()->type === 'administrator')
+		if (!empty(Auth::user()) && Auth::user()->can('viewAll', Restaurant::class))
 			$data['unverifiedRestaurants'] = Restaurant::allUnverified();
 
 		return view('restaurants.index', $data);
@@ -50,37 +55,33 @@ class RestaurantController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Restaurant $restaurant
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id)
+	public function show(Restaurant $restaurant)
 	{
-		$restaurant = Restaurant::find($id);
-		if (!$restaurant)
-			return abort(404);
-
-		return view('restaurants.show', ['restaurant' => $restaurant]);
+		return empty($restaurant) ? abort(404) : view('restaurants.show', ['restaurant' => $restaurant]);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Restaurant $restaurant
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id)
+	public function edit(Restaurant $restaurant)
 	{
-		//
+		return empty($restaurant) ? abort(404) : view('restaurants.edit', ['restaurant' => $restaurant]);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
+	 * @param  Restaurant $restaurant
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request, Restaurant $restaurant)
 	{
 		//
 	}
@@ -88,10 +89,10 @@ class RestaurantController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  Restaurant $restaurant
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy(Restaurant $restaurant)
 	{
 		//
 	}

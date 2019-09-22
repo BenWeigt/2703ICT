@@ -13,7 +13,8 @@ class RestaurantsTableSeeder extends Seeder
 	{
 		DB::table('restaurants')->insert([
 			'name' => 'Sushi Station',
-			'user_id' => 2
+			'user_id' => 2,
+			'verified' => true
 		]);
 		DB::table('restaurants')->insert([
 			'name' => 'Crust Pizza',
