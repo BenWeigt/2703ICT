@@ -15,9 +15,15 @@ class CreateUsersTable extends Migration
 	{
 		Schema::create('users', function (Blueprint $table) {
 			$table->bigIncrements('id');
+			$table->enum('type', ['customer', 'manager', 'administrator'])->default('administrator');
 			$table->string('name');
-			$table->bigInteger('restaurant_id')->nullable()->default(null);
 			$table->string('email')->unique();
+
+			$table->string('address');
+			$table->string('suburb');
+			$table->integer('postcode')->unsigned();
+			$table->string('state');
+
 			$table->timestamp('email_verified_at')->nullable();
 			$table->string('password');
 			$table->rememberToken();

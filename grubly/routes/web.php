@@ -17,6 +17,7 @@ Route::get('/', function () {
 });
 
 Route::resource('product', 'ProductController');
+Route::resource('restaurant', 'RestaurantController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

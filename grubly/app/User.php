@@ -38,23 +38,13 @@ class User extends Authenticatable
 	];
 
 
-	public function isAdmin()
+	public function flags()
 	{
-
-	}
-
-	public function isManager()
-	{
-
-	}
-
-	public function isPendingVerification()
-	{
-		
+		return $this->hasMany('grubly\UserFlag');
 	}
 
 	public function manages()
 	{
-
+		return $this->hasOne('grubly\Restaurant');
 	}
 }

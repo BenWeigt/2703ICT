@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<pre>
+	@auth
+		{{ var_dump(\Auth::user()->type) }}
+		@if (\Auth::user()->type == 'manager')
+			{{ var_dump(\Auth::user()->manages->name) }}
+			{{ var_dump(\Auth::user()->manages->verified) }}
+		@endif
+	@endauth
+</pre>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,17 +21,8 @@
 												{{ session('status') }}
 											</div>
 										@else
-											@guest
-												<a class="" href="{{ route('login') }}">{{ __('Login') }}</a>
-												<br>
-												<a class="" href="{{ route('register') }}">{{ __('Register') }}</a>
-												<br>
-												<a class="" style="display:inline-block; margin:5px 0 0 10px;" href="{{REL_DIR}}/product">Products</a>
-											@else
-												<a class="" href="{{REL_DIR}}/product">Products</a>
-												<br>
-												<a class="" href="{{REL_DIR}}/product/create">Create</a>
-											@endguest
+											
+											
                     @endif
                 </div>
             </div>

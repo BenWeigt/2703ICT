@@ -11,15 +11,17 @@ class RestaurantsTableSeeder extends Seeder
 	 */
 	public function run()
 	{
-		// name
 		DB::table('restaurants')->insert([
-			'name' => 'Sennheiser'
+			'name' => 'Sushi Station',
+			'user_id' => 2
 		]);
 		DB::table('restaurants')->insert([
-			'name' => 'AKG'
+			'name' => 'Crust Pizza',
+			'user_id' => 3
 		]);
 		DB::table('restaurants')->insert([
-			'name' => 'HIFIMAN'
-		]);		
+			'name' => 'The Foodary',
+			'user_id' => 4
+		]);	
 	}
 }
