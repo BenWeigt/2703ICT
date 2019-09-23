@@ -18,6 +18,10 @@ class ProductPolicy
 	 */
 	public function addToCart(User $user, Product $product)
 	{
+		// If the cart already contains items, only products from the same restaurant are valid
+		$cart = session('cart');
+		if (!empty($cart) && $cart['restaurant_id'] !== $product->restaurant->id)
+			return false;
 		return !!($user->type === 'customer' && $product->restaurant->verification);
 	}
 

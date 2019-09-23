@@ -1,82 +1,40 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+	<head>
+		<link href="{{asset('css/grubly.css')}}" rel="stylesheet">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Grubly</title>
+	</head>
+	<body>
+		<nav>
+			<a id="nav-title" href="{{route('home')}}">
+				<svg id="nav-title-logo" xmlns="http://www.w3.org/2000/svg" fill="#fff" version="1.1" viewBox="0 0 90 30">
+					<path d="M16,1h-2C6.832,1,1,6.832,1,14c0,0.552,0.447,1,1,1h26c0.553,0,1-0.448,1-1C29,6.832,23.168,1,16,1z M3.045,13  C3.552,7.401,8.271,3,14,3h2c5.729,0,10.448,4.401,10.955,10H3.045z"/>
+					<path d="M28,21h-4c-0.217,0-0.427,0.07-0.6,0.2L20,23.75l-3.4-2.55C16.427,21.07,16.217,21,16,21H2c-0.553,0-1,0.447-1,1v2  c0,2.757,2.243,5,5,5h18c2.757,0,5-2.243,5-5v-2C29,21.447,28.553,21,28,21z M27,24c0,1.654-1.346,3-3,3H6c-1.654,0-3-1.346-3-3v-1  h12.667l3.733,2.8c0.355,0.268,0.844,0.268,1.199,0l3.733-2.8H27V24z"/>
+					<path d="M28,17H2c-0.553,0-1,0.447-1,1s0.447,1,1,1h26c0.553,0,1-0.447,1-1S28.553,17,28,17z"/>
+					<path d="M10,7C9.447,7,9,7.448,9,8v1c0,0.552,0.447,1,1,1s1-0.448,1-1V8C11,7.448,10.553,7,10,7z"/>
+					<path d="M15,7c-0.553,0-1,0.448-1,1v1c0,0.552,0.447,1,1,1s1-0.448,1-1V8C16,7.448,15.553,7,15,7z"/>
+					<path d="M20,7c-0.553,0-1,0.448-1,1v1c0,0.552,0.447,1,1,1s1-0.448,1-1V8C21,7.448,20.553,7,20,7z"/>
+					<text x="30" y="22" style="font: 20px 'Roboto', sans-serif" >Grubly</text>
+				</svg>
+			</a>
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
 
-                    </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-															<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-														<li class="nav-item">
-															<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-														<li class="nav-item">
-															<a class="nav-link" style="padding-left:20px;" href="{{REL_DIR}}/product">Products</a>
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-																		<a class="dropdown-item" style="padding-left:20px;" href="{{REL_DIR}}/product">Products</a>
-																		<a class="dropdown-item" style="padding-left:20px;" href="{{REL_DIR}}/product/create">Create</a>
 
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-				@include('components.cart')
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-</body>
+
+			
+			@include('components.cart')
+		</nav>
+    @yield('content')
+	</body>
 </html>

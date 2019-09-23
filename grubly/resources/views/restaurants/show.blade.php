@@ -16,19 +16,20 @@
 		</div>
 		{{-- Restaurant product list --}}
 		<div class="restaurant-products">
-			@foreach($restaurant->products as $product)
+			@foreach(($paginations = $restaurant->products()->paginate(4)) as $product)
 				@include('products.show', ['product' => $product])
 			@endforeach
-			
 		</div>
+		<div class="restaurant-products-pagination">
+			{{$paginations}}
+		</div>
+		
 		@can('purchaseFrom', $restaurant)
 			<script>
 				document.addEventListener('DOMContentLoaded', ()=>{
-					console.log('setup');
 					const products = document.querySelectorAll('.product');
 					for (const product of products) {
 						product.addEventListener('click', ()=>{
-							console.log('click');
 							const data = new FormData();
 							data.append('product_id', product.dataset.id);
 							fetch('{{route('addToCart')}}', {
@@ -37,6 +38,22 @@
 									'X-CSRF-TOKEN': '{{csrf_token()}}'
 								},
 								body: data
+							}).then(response=>{
+								response.text().then(text=>{
+									const cart = document.getElementById('nav-cart');
+									if (cart)
+									{
+										while (cart.nextSibling)
+										{
+											cart.parentNode.removeChild(cart.nextSibling);
+										}
+										cart.parentNode.removeChild(cart);
+									}
+									document.querySelector('nav').innerHTML += text;
+									const script = text.match(/<script>([\s\S]*)<\/script>/);
+									if (script)
+										window.eval(script[1]);
+								});
 							});
 						});
 					}

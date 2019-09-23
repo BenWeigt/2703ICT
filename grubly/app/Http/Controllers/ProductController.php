@@ -18,24 +18,9 @@ class ProductController extends Controller
 	public function addToCart(Request $request)
 	{
 		$product = Product::find($request->product_id);
-		if (!empty($product) && !empty(Auth::user()) && Auth::user()->can('addToCart', $product))
+		if (!empty($product))
 		{
-			// Get or initialse cart
-			$cart = session('cart');
-			if (empty($cart))
-			{
-				$cart = [
-					'restaurant_id' => $product->restaurant->id,
-					'products' => []
-				];
-			}
-			// Cart must be all from the same restaurant
-			if ($cart['restaurant_id'] === $product->restaurant->id)
-			{
-				// Add to cart
-				$cart['products'][$product->id] = isset($cart['products'][$product->id]) ? $cart['products'][$product->id] + 1 : 1;
-				session(['cart' => $cart]);
-			}
+			Product::addToCart($product);
 		}
 		return view('components.cart');
 	}

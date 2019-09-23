@@ -1,6 +1,7 @@
 <?php
 
 namespace grubly;
+use grubly\Product;
 
 class Restaurant extends User
 {
@@ -13,7 +14,7 @@ class Restaurant extends User
 		});
 	}
 
-	
+
 	public static function allVerified()
 	{
 		return static::has('verification')->get();
