@@ -19,6 +19,9 @@ class RestaurantPolicy
 	 */
 	public function purchaseFrom(User $user, Restaurant $restaurant)
 	{
+		$cart = session('cart');
+		if (!empty($cart) && $cart['restaurant_id'] !== $restaurant->id)
+			return false;
 		return !!($user->type === 'customer' && $restaurant->verification);
 	}
 
