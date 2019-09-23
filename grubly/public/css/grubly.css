@@ -204,7 +204,8 @@ nav {
 .product {
 	padding: 10px 20px;
 	height: 275px;
-	flex: 1 1;
+	max-width: 650px;
+	flex: 1 1 45%;
 	display: grid;
 	position: relative;
 	grid-template-columns: 400px auto;
@@ -230,6 +231,7 @@ nav {
 .restaurant-products {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-evenly;
 }
 
 .pagination {

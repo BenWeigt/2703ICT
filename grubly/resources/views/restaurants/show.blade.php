@@ -16,7 +16,7 @@
 		</div>
 		{{-- Restaurant product list --}}
 		<div class="restaurant-products">
-			@foreach(($paginations = $restaurant->products()->paginate(4)) as $product)
+			@foreach(($paginations = $restaurant->products()->paginate(5)) as $product)
 				@include('products.show', ['product' => $product])
 			@endforeach
 		</div>
