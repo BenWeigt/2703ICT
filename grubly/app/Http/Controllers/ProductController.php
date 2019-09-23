@@ -24,6 +24,12 @@ class ProductController extends Controller
 		}
 		return view('components.cart');
 	}
+
+	public function clearCart()
+	{
+		Product::clearCart();
+		return view('components.cart');
+	}
 		
 	/**
 	 * Display a listing of the resource.

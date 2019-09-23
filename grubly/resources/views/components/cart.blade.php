@@ -29,6 +29,10 @@
 					</div>
 				</div>
 			@endforeach
+
+			<div id="cart-clear">
+				Clear Cart
+			</div>
 		</div>
 	</div>
 	<script>
@@ -40,6 +44,11 @@
 				bindCartInteractions();
 
 			function bindCartInteractions(){
+				// Show cart on icon click
+				const nav = document.getElementById('nav-cart');
+				nav.addEventListener('click', evt=>{
+					wrapper.classList.add('active');
+				});
 				// Hide cart on page overlay click
 				const wrapper = document.getElementById('cart-wrapper');
 				wrapper.addEventListener('click', evt=>{
@@ -52,9 +61,10 @@
 					wrapper.classList.remove('active');
 				});
 				// Show cart on nav button click
-				const nav = document.getElementById('nav-cart');
-				nav.addEventListener('click', evt=>{
-					wrapper.classList.add('active');
+				const clear = document.getElementById('cart-clear');
+				clear.addEventListener('click', evt=>{
+					wrapper.classList.remove('active');
+					clearCart();
 				});
 			}
 		})();

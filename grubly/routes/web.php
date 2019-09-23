@@ -18,6 +18,8 @@ Auth::routes();
 Route::get('/', 'RestaurantController@index')->name('home');
 // Connect add product to cart
 Route::post('cart/add', 'ProductController@addToCart')->name('addToCart');
+// Connect clear cart
+Route::post('cart/clear', 'ProductController@clearCart')->name('clearCart');
 // Connect ProductController and RestaurantController CRUD
 Route::resources([
 	'products' => 'ProductController',

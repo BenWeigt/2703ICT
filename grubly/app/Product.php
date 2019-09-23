@@ -64,4 +64,9 @@ class Product extends Model
 
 		return view('components.cart');
 	}
+
+	public static function clearCart()
+	{
+		session(['cart'=>null]);
+	}
 }

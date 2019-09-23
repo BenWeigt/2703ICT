@@ -25,36 +25,36 @@
 		</div>
 		
 		@can('purchaseFrom', $restaurant)
+			<style>
+				.product:before {
+					content: "Add to order";
+					display: flex;
+					background: #0005;
+					box-sizing: border-box;
+					border: 2px solid #8BC34A;
+					z-index: 50;
+					justify-content: center;
+					text-align: center;
+					flex-direction: column;
+					font-size: 40px;
+					color: #fff;
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					cursor: pointer;
+					opacity: 0;
+					transition: opacity 200ms ease;
+				}
+				.product:hover:before {
+					opacity: 1;
+				}
+			</style>
 			<script>
 				document.addEventListener('DOMContentLoaded', ()=>{
 					const products = document.querySelectorAll('.product');
 					for (const product of products) {
 						product.addEventListener('click', ()=>{
-							const data = new FormData();
-							data.append('product_id', product.dataset.id);
-							fetch('{{route('addToCart')}}', {
-								method: 'POST',
-								headers: {
-									'X-CSRF-TOKEN': '{{csrf_token()}}'
-								},
-								body: data
-							}).then(response=>{
-								response.text().then(text=>{
-									const cart = document.getElementById('nav-cart');
-									if (cart)
-									{
-										while (cart.nextSibling)
-										{
-											cart.parentNode.removeChild(cart.nextSibling);
-										}
-										cart.parentNode.removeChild(cart);
-									}
-									document.querySelector('nav').innerHTML += text;
-									const script = text.match(/<script>([\s\S]*)<\/script>/);
-									if (script)
-										window.eval(script[1]);
-								});
-							});
+							addProductToCart(product.dataset.id);
 						});
 					}
 				});
