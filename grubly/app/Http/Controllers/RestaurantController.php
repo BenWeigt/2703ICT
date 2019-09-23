@@ -21,14 +21,16 @@ class RestaurantController extends Controller
 	 */
 	public function index()
 	{
-		// Everyone can view verified restaurants
-		$data = ['restaurants' => Restaurant::allVerified()];
+		// // Everyone can view verified restaurants
+		// $data = ['restaurants' => Restaurant::allVerified()];
 
-		// Administrators can view unverified restaurants
-		if (!empty(Auth::user()) && Auth::user()->can('viewAll', Restaurant::class))
-			$data['unverifiedRestaurants'] = Restaurant::allUnverified();
+		// // Administrators can view unverified restaurants
+		// if (!empty(Auth::user()) && Auth::user()->can('viewAll', Restaurant::class))
+		// 	$data['unverifiedRestaurants'] = Restaurant::allUnverified();
 
-		return view('restaurants.index', $data);
+		// return view('restaurants.index', $data);
+
+		return view('restaurants.index', ['restaurants' => Restaurant::all()]);
 	}
 
 	/**

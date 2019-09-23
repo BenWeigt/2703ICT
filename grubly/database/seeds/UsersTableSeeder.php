@@ -24,74 +24,103 @@ class UsersTableSeeder extends Seeder
 			'password' => bcrypt('admin'),
 		]);
 
+		/**
+		 * Restaurants
+		 */
 		DB::table('users')->insert([
-			'name' => 'Bob',
-			'email' => 'bob@sushistation.com',
+			'name' => 'McDonalds',
+			'email' => 'manager@mcdonalds.com',
 
-			'address' => '170 Bobs Rd',
-			'suburb' => 'Nathan',
-			'postcode' => 4111,
+			'address' => '664 Toohey Road',
+			'suburb' => 'Salisbury',
+			'postcode' => 4107,
 			'state' => 'QLD',
 
-			'type' => 'manager',
+			'type' => 'restaurant',
 			'password' => bcrypt('123456'),
 		]);
-		DB::table('users')->insert([
-			'name' => 'Fred',
-			'email' => 'fred@crustpizza.com',
+		DB::table('verifications')->insert([
+			'restaurant_id' => 2
+		]);
 
-			'address' => '170 Freds Rd',
-			'suburb' => 'Nathan',
-			'postcode' => 4111,
+		DB::table('users')->insert([
+			'name' => 'Sushi Train',
+			'email' => 'manager@sushitrain.com',
+
+			'address' => 'Shop 3, 1927 Beaudesert Rd.',
+			'suburb' => 'Algester',
+			'postcode' => 4116,
 			'state' => 'QLD',
 
-			'type' => 'manager',
+			'type' => 'restaurant',
 			'password' => bcrypt('123456'),
 		]);
-		DB::table('users')->insert([
-			'name' => 'Ned',
-			'email' => 'ned@thefoodary.com',
+		DB::table('verifications')->insert([
+			'restaurant_id' => 3
+		]);
 
-			'address' => '173 Neds Rd',
-			'suburb' => 'Nathan',
-			'postcode' => 4111,
+		DB::table('users')->insert([
+			'name' => 'Fresca Mex',
+			'email' => 'manager@frescamex.com',
+
+			'address' => '15 Denham Terrace',
+			'suburb' => 'Tarragindi',
+			'postcode' => 4121,
 			'state' => 'QLD',
 
-			'type' => 'manager',
+			'type' => 'restaurant',
 			'password' => bcrypt('123456'),
 		]);
-		DB::table('users')->insert([
-			'name' => 'Foo',
-			'email' => 'foo@gmail.com',
+		DB::table('verifications')->insert([
+			'restaurant_id' => 4
+		]);
 
-			'address' => '174 Foos Rd',
-			'suburb' => 'Nathan',
-			'postcode' => 4111,
+		DB::table('users')->insert([
+			'name' => 'Crust Pizza',
+			'email' => 'manager@crustpizza.com',
+
+			'address' => '1389 Logan Rd',
+			'suburb' => 'Mount Gravatt',
+			'postcode' => 4122,
 			'state' => 'QLD',
 
+			'type' => 'restaurant',
 			'password' => bcrypt('123456'),
 		]);
-		DB::table('users')->insert([
-			'name' => 'Bar',
-			'email' => 'bar@gmail.com',
+		DB::table('verifications')->insert([
+			'restaurant_id' => 5
+		]);
 
-			'address' => '174 Bars Rd',
-			'suburb' => 'Nathan',
-			'postcode' => 4111,
+		DB::table('users')->insert([
+			'name' => 'Schnitz',
+			'email' => 'manager@schnitz.com',
+
+			'address' => 'Logan Rd & Kessels Rd',
+			'suburb' => 'Upper Mount Gravatt',
+			'postcode' => 4122,
 			'state' => 'QLD',
 
+			'type' => 'restaurant',
 			'password' => bcrypt('123456'),
 		]);
-		DB::table('users')->insert([
-			'name' => 'Baz',
-			'email' => 'baz@gmail.com',
+		DB::table('verifications')->insert([
+			'restaurant_id' => 6
+		]);
 
-			'address' => '174 Bazs Rd',
-			'suburb' => 'Nathan',
-			'postcode' => 4111,
+		DB::table('users')->insert([
+			'name' => 'Pizza Capers',
+			'email' => 'manager@pizzacapers.com',
+
+			'address' => '1722 Logan Road',
+			'suburb' => 'Upper Mount Gravatt',
+			'postcode' => 4122,
 			'state' => 'QLD',
 
+			'type' => 'restaurant',
 			'password' => bcrypt('123456'),
+		]);
+		DB::table('verifications')->insert([
+			'restaurant_id' => 7
 		]);
 	}
 }

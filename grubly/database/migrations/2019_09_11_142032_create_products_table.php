@@ -15,9 +15,11 @@ class CreateProductsTable extends Migration
 	{
 		Schema::create('products', function (Blueprint $table) {
 			$table->bigIncrements('id');
+			$table->integer('restaurant_id');
+
 			$table->string('name');
 			$table->float('price');
-			$table->integer('restaurant_id');
+			$table->string('image')->nullable();
 		});
 	}
 

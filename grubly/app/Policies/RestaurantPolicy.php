@@ -30,7 +30,7 @@ class RestaurantPolicy
 	 */
 	public function view(?User $user, Restaurant $restaurant)
 	{
-		return !!($restaurant->verified || (!empty($user) && ($user->type === 'administrator' || $user->id === $restaurant->manager->id)));
+		return true;//!!($restaurant->verified || (!empty($user) && ($user->type === 'administrator' || $user->id === $restaurant->manager->id)));
 	}
 
 	/**

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRestaurantsTable extends Migration
+class CreateVerificationsTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,11 +13,9 @@ class CreateRestaurantsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('restaurants', function (Blueprint $table) {
-			$table->bigIncrements('id');
-			$table->string('name');
-			$table->bigInteger('user_id');
-			$table->boolean('verified')->default(false);
+		Schema::create('verifications', function (Blueprint $table) {
+			$table->bigInteger('restaurant_id');
+			$table->timestamps();
 		});
 	}
 
@@ -28,6 +26,6 @@ class CreateRestaurantsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('restaurants');
+		Schema::dropIfExists('verifications');
 	}
 }

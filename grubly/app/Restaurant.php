@@ -2,39 +2,25 @@
 
 namespace grubly;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Restaurant extends Model
+class Restaurant extends User
 {
-	public $timestamps = false;
-
-	/**
-	 * Returns a collection of all verified Restaurants
-	 */
-	public static function allVerified()
+	protected $table = 'users';
+	public static function boot()
 	{
-		return self::where('verified', true)->get();
+		parent::boot();
+		static::addGlobalScope(function ($query) {
+			$query->where('type', 'restaurant');
+		});
 	}
 
-	/**
-	 * Returns a collection of all unverified Restaurants
-	 */
-	public static function allUnverified()
-	{
-		return self::where('verified', false)->get();
-	}
-	
-	/**
-	 * Link a User (type manager) to this Restaurant (one to one)
-	 */
-  function manager() {
-		return $this->belongsTo('grubly\User', 'user_id');
-	}
-	
 	/**
 	 * Link products to this Restaurant (one to many)
 	 */
   function products() {
 		return $this->hasMany('grubly\Product');
+	}
+
+	function verification() {
+		return $this->hasOne('grubly\Verification');
 	}
 }

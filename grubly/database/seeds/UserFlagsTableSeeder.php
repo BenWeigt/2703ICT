@@ -11,9 +11,5 @@ class UserFlagsTableSeeder extends Seeder
 	 */
 	public function run()
 	{
-		DB::table('user_flags')->insert([
-			'user_id' => '1',
-			'flag' => 'test'
-		]);
 	}
 }
