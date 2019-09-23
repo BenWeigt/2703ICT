@@ -16,7 +16,7 @@ class RestaurantPolicy
 	 * @param  \grubly\User  $user
 	 * @return mixed
 	 */
-	public function viewAll(User $user)
+	public function viewAny(User $user)
 	{
 		return !!($user->type === 'administrator');
 	}
@@ -30,7 +30,7 @@ class RestaurantPolicy
 	 */
 	public function view(?User $user, Restaurant $restaurant)
 	{
-		return true;//!!($restaurant->verified || (!empty($user) && ($user->type === 'administrator' || $user->id === $restaurant->manager->id)));
+		return !!($restaurant->verification || (!empty($user) && ($user->type === 'administrator' || $user->id === $restaurant->id)));
 	}
 
 	/**
@@ -41,7 +41,7 @@ class RestaurantPolicy
 	 */
 	public function create(User $user)
 	{
-		return !!($user->type === 'manager' && empty($user->manages));
+		return !!(empty($user));
 	}
 
 	/**
@@ -53,7 +53,7 @@ class RestaurantPolicy
 	 */
 	public function update(User $user, Restaurant $restaurant)
 	{
-		return !!($user->type === 'manager' && $user->id === $restaurant->user_id);
+		return !!($user->id === $restaurant->id);
 	}
 
 	/**

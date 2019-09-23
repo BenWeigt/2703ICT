@@ -18,7 +18,7 @@ class ProductPolicy
 	 */
 	public function viewAny(User $user)
 	{
-		return true;
+		return !!($user->type === 'administrator');
 	}
 
 	/**
@@ -28,9 +28,9 @@ class ProductPolicy
 	 * @param  \grubly\Product  $product
 	 * @return mixed
 	 */
-	public function view(User $user, Product $product)
+	public function view(?User $user, Product $product)
 	{
-		return true;
+		return !!($product->restaurant->verification || (!empty($user) && $user->can('view', $product->restaurant)));
 	}
 
 	/**
@@ -41,7 +41,7 @@ class ProductPolicy
 	 */
 	public function create(User $user)
 	{
-		return !!($user->type === 'manager' && !empty($user->manages));
+		return !!($user->type === 'restaurant');
 	}
 
 	/**
@@ -53,7 +53,7 @@ class ProductPolicy
 	 */
 	public function update(User $user, Product $product)
 	{
-		return true;
+		return !!($user->id === $product->restaurant->id);
 	}
 
 	/**
@@ -65,7 +65,7 @@ class ProductPolicy
 	 */
 	public function delete(User $user, Product $product)
 	{
-		return true;
+		return !!($user->id === $product->restaurant->id);
 	}
 
 	/**
@@ -77,7 +77,7 @@ class ProductPolicy
 	 */
 	public function restore(User $user, Product $product)
 	{
-		return true;
+		return !!($user->id === $product->restaurant->id);
 	}
 
 	/**
@@ -89,6 +89,6 @@ class ProductPolicy
 	 */
 	public function forceDelete(User $user, Product $product)
 	{
-		return true;
+		return !!($user->id === $product->restaurant->id);
 	}
 }

@@ -103,9 +103,9 @@ class UsersTableSeeder extends Seeder
 			'type' => 'restaurant',
 			'password' => bcrypt('123456'),
 		]);
-		DB::table('verifications')->insert([
-			'restaurant_id' => 6
-		]);
+		// DB::table('verifications')->insert([
+		// 	'restaurant_id' => 6
+		// ]);
 
 		DB::table('users')->insert([
 			'name' => 'Pizza Capers',
@@ -119,8 +119,8 @@ class UsersTableSeeder extends Seeder
 			'type' => 'restaurant',
 			'password' => bcrypt('123456'),
 		]);
-		DB::table('verifications')->insert([
-			'restaurant_id' => 7
-		]);
+		// DB::table('verifications')->insert([
+		// 	'restaurant_id' => 7
+		// ]);
 	}
 }

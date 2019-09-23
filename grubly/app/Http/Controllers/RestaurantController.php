@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use grubly\Restaurant;
 
-
 class RestaurantController extends Controller
 {
 	public function __construct()
@@ -15,22 +14,17 @@ class RestaurantController extends Controller
 	}
 		
 	/**
-	 * Display a listing of the resource.
+	 * Display all Restaurants.
+	 * Note: authorizeResource() does not map index() to any policy. That is appropriate here, as
+	 * any user can view the restaurant index page - however inside the page, we will check the 
+	 * Restaurant policy for restaurants without verification, and only display those that are 
+	 * alowed.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index()
 	{
-		// // Everyone can view verified restaurants
-		// $data = ['restaurants' => Restaurant::allVerified()];
-
-		// // Administrators can view unverified restaurants
-		// if (!empty(Auth::user()) && Auth::user()->can('viewAll', Restaurant::class))
-		// 	$data['unverifiedRestaurants'] = Restaurant::allUnverified();
-
-		// return view('restaurants.index', $data);
-
-		return view('restaurants.index', ['restaurants' => Restaurant::all()]);
+		return view('restaurants.index');
 	}
 
 	/**

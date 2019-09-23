@@ -36,15 +36,4 @@ class User extends Authenticatable
 	protected $casts = [
 		'email_verified_at' => 'datetime',
 	];
-
-
-	public function flags()
-	{
-		return $this->hasMany('grubly\UserFlag');
-	}
-
-	public function manages()
-	{
-		return $this->hasOne('grubly\Restaurant');
-	}
 }

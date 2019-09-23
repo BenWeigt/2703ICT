@@ -17,7 +17,7 @@
 		{{-- Restaurant product list --}}
 		<div class="restaurant-products">
 			@foreach ($restaurant->products as $product)
-				<div class="product">
+				<div class="product" data-id="{{$product->id}}">
 					@if($product->image)
 						<img class="product-image" src="{{$product->image}}">
 					@endif

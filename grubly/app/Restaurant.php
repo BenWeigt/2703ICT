@@ -13,6 +13,17 @@ class Restaurant extends User
 		});
 	}
 
+	
+	public static function allVerified()
+	{
+		return static::has('verification')->get();
+	}
+
+	public static function allUnverified()
+	{
+		return static::doesnthave('verification')->get();
+	}
+
 	/**
 	 * Link products to this Restaurant (one to many)
 	 */
