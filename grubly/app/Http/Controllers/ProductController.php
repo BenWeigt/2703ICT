@@ -2,6 +2,7 @@
 
 namespace grubly\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use grubly\Product;
 use grubly\Restaurant;
@@ -12,6 +13,31 @@ class ProductController extends Controller
 	{
 		$this->middleware('auth', ['except'=>['index','show']]);
 		$this->authorizeResource(Product::class);
+	}
+
+	public function addToCart(Request $request)
+	{
+		$product = Product::find($request->product_id);
+		if (!empty($product) && !empty(Auth::user()) && Auth::user()->can('addToCart', $product))
+		{
+			// Get or initialse cart
+			$cart = session('cart');
+			if (empty($cart))
+			{
+				$cart = [
+					'restaurant_id' => $product->restaurant->id,
+					'products' => []
+				];
+			}
+			// Cart must be all from the same restaurant
+			if ($cart['restaurant_id'] === $product->restaurant->id)
+			{
+				// Add to cart
+				$cart['products'][$product->id] = isset($cart['products'][$product->id]) ? $cart['products'][$product->id] + 1 : 1;
+				session(['cart' => $cart]);
+			}
+		}
+		return view('components.cart');
 	}
 		
 	/**

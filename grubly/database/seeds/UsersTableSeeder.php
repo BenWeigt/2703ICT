@@ -122,5 +122,18 @@ class UsersTableSeeder extends Seeder
 		// DB::table('verifications')->insert([
 		// 	'restaurant_id' => 7
 		// ]);
+
+
+		DB::table('users')->insert([
+			'name' => 'Ned',
+			'email' => 'ned@gmail.com',
+
+			'address' => '123 Neds Rd',
+			'suburb' => 'Nedland',
+			'postcode' => 4000,
+			'state' => 'QLD',
+
+			'password' => bcrypt('123456'),
+		]);
 	}
 }

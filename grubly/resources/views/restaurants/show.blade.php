@@ -16,19 +16,32 @@
 		</div>
 		{{-- Restaurant product list --}}
 		<div class="restaurant-products">
-			@foreach ($restaurant->products as $product)
-				<div class="product" data-id="{{$product->id}}">
-					@if($product->image)
-						<img class="product-image" src="{{$product->image}}">
-					@endif
-					<div class="product-name">
-						{{$product->name}}
-					</div>
-					<div class="product-price">
-						{{$product->price}}
-					</div>
-				</div>
+			@foreach($restaurant->products as $product)
+				@include('products.show', ['product' => $product])
 			@endforeach
-		<div>
+			
+		</div>
+		@can('purchaseFrom', $restaurant)
+			<script>
+				document.addEventListener('DOMContentLoaded', ()=>{
+					console.log('setup');
+					const products = document.querySelectorAll('.product');
+					for (const product of products) {
+						product.addEventListener('click', ()=>{
+							console.log('click');
+							const data = new FormData();
+							data.append('product_id', product.dataset.id);
+							fetch('{{route('addToCart')}}', {
+								method: 'POST',
+								headers: {
+									'X-CSRF-TOKEN': '{{csrf_token()}}'
+								},
+								body: data
+							});
+						});
+					}
+				});
+			</script>
+		@endcan
 	</div>
 @endsection

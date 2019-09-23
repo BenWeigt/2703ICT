@@ -10,6 +10,18 @@ class RestaurantPolicy
 {
 	use HandlesAuthorization;
 	
+
+	/**
+	 * Determine whether the user can purchase products from the restaurant.
+	 *
+	 * @param  \grubly\User  $user
+	 * @return mixed
+	 */
+	public function purchaseFrom(User $user, Restaurant $restaurant)
+	{
+		return !!($user->type === 'customer' && $restaurant->verification);
+	}
+
 	/**
 	 * Determine whether the user can view all restaurants.
 	 *

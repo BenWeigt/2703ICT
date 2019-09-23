@@ -11,6 +11,17 @@ class ProductPolicy
 	use HandlesAuthorization;
 
 	/**
+	 * Determine whether the user can add product to cart.
+	 *
+	 * @param  \grubly\User  $user
+	 * @return mixed
+	 */
+	public function addToCart(User $user, Product $product)
+	{
+		return !!($user->type === 'customer' && $product->restaurant->verification);
+	}
+
+	/**
 	 * Determine whether the user can view any products.
 	 *
 	 * @param  \grubly\User  $user

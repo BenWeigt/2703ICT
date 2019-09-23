@@ -73,7 +73,7 @@
                 </div>
             </div>
         </nav>
-
+				@include('components.cart')
         <main class="py-4">
             @yield('content')
         </main>

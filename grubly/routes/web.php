@@ -16,6 +16,8 @@
 Auth::routes();
 // Root gets handled by RestaurantController->index and is also given the name 'home' for ease of redirects
 Route::get('/', 'RestaurantController@index')->name('home');
+// Connect add product to cart
+Route::post('cart/add', 'ProductController@addToCart')->name('addToCart');
 // Connect ProductController and RestaurantController CRUD
 Route::resources([
 	'products' => 'ProductController',
