@@ -60,9 +60,9 @@ class Product extends Model
 			// Add to cart
 			$cart['products'][$product->id] = isset($cart['products'][$product->id]) ? $cart['products'][$product->id] + 1 : 1;
 			session(['cart' => $cart]);
+			return view('components.cart');
 		}
-
-		return view('components.cart');
+		abort(418); // HTCPCP/1.0
 	}
 
 	public static function clearCart()
