@@ -22,25 +22,34 @@
 					<path d="M10,7C9.447,7,9,7.448,9,8v1c0,0.552,0.447,1,1,1s1-0.448,1-1V8C11,7.448,10.553,7,10,7z"/>
 					<path d="M15,7c-0.553,0-1,0.448-1,1v1c0,0.552,0.447,1,1,1s1-0.448,1-1V8C16,7.448,15.553,7,15,7z"/>
 					<path d="M20,7c-0.553,0-1,0.448-1,1v1c0,0.552,0.447,1,1,1s1-0.448,1-1V8C21,7.448,20.553,7,20,7z"/>
-					<text x="30" y="22" style="font: 20px 'Roboto', sans-serif" >Grubly</text>
+					<text x="30" y="22" style="font: 20px 'Roboto', sans-serif">Grubly</text>
 				</svg>
 			</a>
 
+			@guest
+				<a class="nav-auth" href="{{route('login')}}">
+					Login
+				</a>
+				<a class="nav-auth" href="{{route('register')}}">
+					Register
+				</a>
+			@else
+				<div style="display: flex; justify-content: center;	flex-direction: column; color: #8BC34A; font-size: 20px;">Hi, {{ Auth::user()->name }}!</div>
+				<a class="nav-auth" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+					Logout
+					<form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+          	@csrf
+        	</form>
+				</a>
+			@endauth
 
-
-
-
-
-
-
-
-
-
-
-
-			
 			@include('components.cart')
 		</nav>
+
+
+
+
+
     @yield('content')
 	</body>
 </html>
