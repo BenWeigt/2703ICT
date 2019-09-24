@@ -29,7 +29,6 @@
 					</div>
 				</div>
 			@endforeach
-
 			<div id="cart-clear">
 				Clear Cart
 			</div>

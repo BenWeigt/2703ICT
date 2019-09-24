@@ -1,20 +1,21 @@
 @extends('layouts/app')
-
 @section('content')
-
+	@isrestaurant
+		<section class="own-restaurant">
+			@include('components.restaurantpreview', ['restaurant' => grubly\Restaurant::find(\Auth::user()->id)])
+		</section>
+	@endisrestaurant
 	@can ('viewAny', grubly\Restaurant::class)
-		<h2> Restaurants Pending Verification</h2>
-		@foreach (grubly\Restaurant::allUnverified() as $restaurant)
-			<div class="restaurant">
-				<a href="restaurants/{{$restaurant->id}}">{{$restaurant->name}}</a>
-			</div>
-		@endforeach
+		<section class="pending-restaurants">
+			<h2> Restaurants Pending Verification</h2>
+			@foreach (grubly\Restaurant::allUnverified() as $restaurant)
+				@include('components.restaurantpreview', ['restaurant' => $restaurant])
+			@endforeach
+		</section>
 	@endcan
-
-	<h2> Restaurants </h2>
-	@foreach (grubly\Restaurant::allVerified() as $restaurant)
-		<div class="restaurant">
-			<a href="restaurants/{{$restaurant->id}}">{{$restaurant->name}}</a>
-		</div>
-	@endforeach
+	<section class="restaurant-list">
+		@foreach (grubly\Restaurant::allVerified() as $restaurant)
+			@include('components.restaurantpreview', ['restaurant' => $restaurant])
+		@endforeach
+	</section>
 @endsection

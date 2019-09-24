@@ -25,7 +25,6 @@
 					<text x="30" y="22" style="font: 20px 'Roboto', sans-serif">Grubly</text>
 				</svg>
 			</a>
-
 			@guest
 				<a class="nav-auth" href="{{route('login')}}">
 					Login
@@ -42,14 +41,8 @@
         	</form>
 				</a>
 			@endauth
-
 			@include('components.cart')
 		</nav>
-
-
-
-
-
     @yield('content')
 	</body>
 </html>
