@@ -4,6 +4,7 @@ namespace grubly\Policies;
 
 use grubly\User;
 use grubly\Product;
+use grubly\Restaurant;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ProductPolicy
@@ -56,7 +57,8 @@ class ProductPolicy
 	 */
 	public function create(User $user)
 	{
-		return !!($user->type === 'restaurant');
+		$restaurant = Restaurant::find($user->id);
+		return !!(!empty($restaurant) && $restaurant->verification);
 	}
 
 	/**
@@ -68,7 +70,7 @@ class ProductPolicy
 	 */
 	public function update(User $user, Product $product)
 	{
-		return !!($user->id === $product->restaurant->id);
+		return !!($user->id === $product->restaurant->id && $product->restaurant->verification);
 	}
 
 	/**
@@ -80,7 +82,7 @@ class ProductPolicy
 	 */
 	public function delete(User $user, Product $product)
 	{
-		return !!($user->id === $product->restaurant->id);
+		return !!($user->can('update', $product));
 	}
 
 	/**

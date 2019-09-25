@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use grubly\Product;
 use grubly\Restaurant;
+use Validator;
 
 class ProductController extends Controller
 {
@@ -49,7 +50,18 @@ class ProductController extends Controller
 	 */
 	public function create()
 	{
-		return view('products.create', ['restaurants' => Restaurant::all()]);
+		return view('products.create');
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  Product $product
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(Request $request, Product $product)
+	{
+		return view('products.edit', ['product' => $product]);
 	}
 
 	/**
@@ -60,17 +72,20 @@ class ProductController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$this->validate($request, [
-			'name' => 'required|max:255',
-			'price' => 'required|numeric|min:1',
-			'restaurant' => 'exists:restaurants,id'
+		$validator = Validator::make($request->all(), [
+			'name' => ['required', 'string', 'max:255'],
+			'price' => ['required', 'numeric', 'min:0.05'],
+			'image' => ['nullable', 'string', 'max:255']
 		]);
+		if ($validator->fails())
+			return redirect()->route('products.create')->withErrors($validator)->withInput();
+
 		$product = new Product();
 		$product->name = $request->name;
 		$product->price = $request->price;
-		$product->restaurant_id = $request->restaurant;
+		$product->restaurant_id = Auth::user()->id;
 		$product->save();
-		return redirect('product/'.$product->id);
+		return view('products.show', ['product' => $product]);
 	}
 
 	/**
@@ -84,16 +99,7 @@ class ProductController extends Controller
 		return view('products.show', ['product' => $product]);
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  Product $product
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit(Product $product)
-	{
-		return view('products.edit', ['product' => $product, 'restaurants' => Restaurant::all()]);
-	}
+
 
 	/**
 	 * Update the specified resource in storage.
@@ -104,16 +110,19 @@ class ProductController extends Controller
 	 */
 	public function update(Request $request, Product $product)
 	{
-		$this->validate($request, [
-			'name' => 'required|max:255',
-			'price' => 'required|numeric|min:1',
-			'restaurant' => 'exists:restaurants,id'
+		$validator = Validator::make($request->all(), [
+			'name' => ['required', 'string', 'max:255'],
+			'price' => ['required', 'numeric', 'min:0.05'],
+			'image' => ['nullable', 'string', 'max:255']
 		]);
+		if ($validator->fails())
+			return redirect()->route('products.update', $product)->withErrors($validator)->withInput();
+
 		$product->name = $request->name;
-		$product->price = $request->price;
-		$product->restaurant_id = $request->restaurant;
+		$product->price = floor($request->price*100) / 100;
+		$product->image = $request->image ?? $product->image;
 		$product->save();
-		return redirect('product/'.$product->id);
+		return redirect()->route('products.show', $product);
 	}
 
 	/**

@@ -1,39 +1,26 @@
-@extends('layouts/app')
-
-@section('content')
-<div class="container">
-	<div class="row justify-content-center">
-		<div class="col-md-8">
-			<div class="card">
-				<div class="card-header">Create</div>
-				<div class="card-body">
-					@if(count($errors) > 0)
-					<div class="alert">
-						<ul>
-							@foreach($errors->all() as $error)
-								<li>{{ $error }}</li>
-							@endforeach
-						</ul>
-					</div>
-					@endif
-					<form method="POST" action='{{url("product")}}'>
-						{{csrf_field()}}
-						<p><label>Name: </label><input type="text" name="name" value="{{old('name')}}"></p>
-						<p><label>Price: </label><input type="text" name="price" value="{{old('price')}}"></p>
-						<p><select name="restaurant">
-						@foreach ($restaurants as $restaurant)
-							@if(old('restaurant') && $restaurant->id == old('restaurant'))
-								<option value="{{$restaurant->id}}" selected="selected">{{$restaurant->name}}</option>
-							@else
-								<option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
-							@endif
-						@endforeach
-						</select></p>
-						<input type="submit" value="Create">
-					</form>
-				</div>
-			</div>
+<div class="product editable" id="product-create" 
+	@if(!$errors->any())
+		style="display: none;"
+	@endif>
+	<form method="POST" class="form" action="{{route('products.store')}}" style="display: inline-block;" oninput="this.querySelector('a').style.display = '';">
+		@csrf
+		<div class="product-name">
+			<input type="text" name="name" placeholder=" " value="{{old('name')}}"><label>Name</label><br>
+			@error('name')
+				<strong style="transform: translate(60px, -48px);">{{ $message }}</strong>
+			@enderror
+			<span class="product-price">
+				<span style="transform: translate(-15px, 9px);font-size: 26px;width: 0px;display: inline-block;position: absolute;">$</span>
+				<input type="text" name="price" placeholder=" " value="{{old('price')}}" style="width: 50%;"><label>Price</label>
+				@error('price')
+					<strong>{{ $message }}</strong>
+				@enderror
+			</span>
 		</div>
-	</div>
-</div>	
-@endsection
+		<div class="product-img">
+		</div>
+		<a class="restaurant-preview-unverify" href="#" style="display: none;" onclick="event.preventDefault(); genericSubmitRender(this.parentNode, 'product-create', '.product');">
+			Save&nbsp;&nbsp;
+		</a>
+	</form>
+</div>

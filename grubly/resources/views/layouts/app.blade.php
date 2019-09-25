@@ -4,8 +4,11 @@
 		<link href="{{asset('css/grubly.css')}}" rel="stylesheet">
 		<script src="{{asset('js/grubly.js')}}"></script>
 		<script>
-			window._urlAddToCart = '{{route('addToCart')}}';
-			window._urlClearCart = '{{route('clearCart')}}';
+			window._routes = {
+				addToCart: '{{route('addToCart')}}',
+				clearCart: '{{route('clearCart')}}',
+				products: '{{url('products')}}'
+			};
 			window._csrfToken = '{{csrf_token()}}';
 		</script>
 		<meta charset="utf-8">

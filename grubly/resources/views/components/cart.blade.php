@@ -63,7 +63,7 @@
 				const clear = document.getElementById('cart-clear');
 				clear.addEventListener('click', evt=>{
 					wrapper.classList.remove('active');
-					clearCart();
+					window.cart.clear();
 				});
 			}
 		})();

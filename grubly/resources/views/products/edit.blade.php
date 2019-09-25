@@ -1,40 +1,31 @@
-@extends('layouts/app')
+<div class="product editable" id="product-{{$product->id}}">
 
-@section('content')
-<div class="container">
-	<div class="row justify-content-center">
-		<div class="col-md-8">
-			<div class="card">
-				<div class="card-header">Edit</div>
-				<div class="card-body">
-					<form method="POST" action= '{{url("product/$product->id")}}'>
-						{{csrf_field()}}
-						{{ method_field('PUT') }}
-						<p>
-							<label>Name</label><input type="text" name="name" value="{{old('name') ? old('name') : $product->name}}">
-							<span style="font-weight: bold; font-style: italic; color: red;">{{$errors->first('name')}}</span>
-						</p>
-						<p>
-							<label>Price</label><input type="text" name="price" value="{{old('price') ? old('price') : $product->price}}">
-							<span style="font-weight: bold; font-style: italic; color: red;">{{$errors->first('price')}}</span>
-						</p>
-						<p>
-							<select name="restaurant">
-							@foreach ($restaurants as $restaurant)
-								@if(old('restaurant') && old('restaurant') == $restaurant->id || !old('restaurant') && $restaurant->id == $product->restaurant_id)
-									<option value="{{$restaurant->id}}" selected="selected">{{$restaurant->name}}</option>
-								@else
-									<option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
-								@endif
-							@endforeach
-							</select>
-							<span style="font-weight: bold; font-style: italic; color: red;">{{$errors->first('restaurant')}}</span>
-						</p>
-						<input type="submit" value="Update">
-					</form>
-				</div>
-			</div>
+	<form method="POST" class="delete" action="{{route('products.update', $product)}}" style="display: block;position: absolute; width: 100%;height: 100%;">
+		@csrf @method('delete')
+		<a class="restaurant-preview-unverify" href="#" onclick="event.preventDefault(); genericSubmitRender(this.parentNode, 'product-{{$product->id}}');">
+			Delete
+		</a>
+	</form>
+
+	<form method="POST" class="form" action="{{route('products.update', $product)}}" style="display: inline-block;" oninput="this.querySelector('a').style.display = '';">
+		@csrf @method('put')
+		<div class="product-name">
+			<input type="text" name="name" placeholder=" " value="{{old('name') ?? $product->name}}"><label>Name</label><br>
+			@error('name')
+				<strong style="transform: translate(60px, -48px);">{{ $message }}</strong>
+			@enderror
+			<span class="product-price">
+				<span style="transform: translate(-15px, 9px);font-size: 26px;width: 0px;display: inline-block;position: absolute;">$</span>
+				<input type="text" name="price" placeholder=" " value="{{old('price') ?? number_format($product->price, 2)}}" style="width: 50%;"><label>Price</label>
+				@error('price')
+					<strong>{{ $message }}</strong>
+				@enderror
+			</span>
 		</div>
-	</div>
+		<div class="product-img" @if ($product->image)style="background-image: url('{{$product->image}}');"@endif>
+		</div>
+		<a class="restaurant-preview-unverify" href="#" style="display: none;" onclick="event.preventDefault(); genericSubmitRender(this.parentNode, 'product-{{$product->id}}');">
+			Update
+		</a>
+	</form>
 </div>
-@endsection

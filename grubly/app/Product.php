@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 class Product extends Model
 {
 	public $timestamps = false;
+
+	protected $fillable = [
+		'restaurant_id', 'name', 'price', 'image'
+	];
 	
   function restaurant() {
 		return $this->belongsTo('grubly\Restaurant');
