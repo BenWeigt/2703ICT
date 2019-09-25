@@ -4,82 +4,37 @@ namespace grubly\Http\Controllers;
 
 use grubly\Verification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use grubly\Restaurant;
 
 class VerificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+	public function verify(Request $request)
+	{
+		$user = Auth::user();
+		$restaurant = Restaurant::find($request->id);
+		if (empty($user) || empty($restaurant))
+			return abort(404);
+		if ($user->type !== 'administrator')
+			return abort(403);
+		if (!empty($restaurant->verification))
+			return back();
+		(Verification::create(['restaurant_id' => $restaurant->id]))->save();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+		return back();
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \grubly\Verification  $verification
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Verification $verification)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \grubly\Verification  $verification
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Verification $verification)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \grubly\Verification  $verification
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Verification $verification)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \grubly\Verification  $verification
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Verification $verification)
-    {
-        //
-    }
+	public function unverify(Request $request)
+	{
+		$user = Auth::user();
+		$restaurant = Restaurant::find($request->id);
+		if (empty($user) || empty($restaurant))
+			return abort(404);
+		if ($user->type !== 'administrator')
+			return abort(403);
+		if (empty($restaurant->verification))
+			return back();
+		$restaurant->verification()->delete();
+		return back();
+	}
 }

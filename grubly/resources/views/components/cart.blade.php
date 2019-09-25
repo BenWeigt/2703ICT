@@ -25,7 +25,7 @@
 						{{$product->name}}
 					</div>
 					<div class="product-price">
-						{{$product->price * $product->inCart}}
+						${{number_format($product->price * $product->inCart, 2)}}
 					</div>
 				</div>
 			@endforeach

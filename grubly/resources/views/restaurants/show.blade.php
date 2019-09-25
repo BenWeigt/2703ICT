@@ -4,22 +4,20 @@
 	{{-- Restaurant display --}}
 	<div class="restaurant">
 		<div class="restaurant-info">
-			<div class="restaurant-name">
+			<div style="font-size: 50px; color: #8BC34A; padding: 20px 0 0 60px;">
 				{{$restaurant->name}}
 			</div>
-			<div class="restaurant-address">
-				<span>{{$restaurant->address}}</span>
-				<span>{{$restaurant->suburb}}<span>
-				<span>{{$restaurant->postcode}}<span>
-				<span>{{$restaurant->state}}<span>
+			<div style="font-size: small; color: #8BC34A; padding: 0 0 0 62px;">
+				{{$restaurant->address}} <br>
+				{{$restaurant->suburb}} {{$restaurant->postcode}} {{$restaurant->state}}
 			</div>
 		</div>
 		{{-- Restaurant product list --}}
-		<div class="restaurant-products">
+		<section class="restaurant-products">
 			@foreach(($paginations = $restaurant->products()->paginate(5)) as $product)
 				@include('products.show', ['product' => $product])
 			@endforeach
-		</div>
+		</section>
 		<div class="restaurant-products-pagination">
 			{{$paginations}}
 		</div>

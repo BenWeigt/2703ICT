@@ -20,6 +20,10 @@ Route::get('/', 'RestaurantController@index')->name('home');
 Route::post('cart/add', 'ProductController@addToCart')->name('addToCart');
 // Connect clear cart
 Route::post('cart/clear', 'ProductController@clearCart')->name('clearCart');
+
+Route::post('verification/verify', 'VerificationController@verify')->name('verify');
+Route::post('verification/unverify', 'VerificationController@unverify')->name('unverify');
+
 // Connect ProductController and RestaurantController CRUD
 Route::resources([
 	'products' => 'ProductController',

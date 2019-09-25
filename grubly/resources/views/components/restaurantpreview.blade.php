@@ -1,17 +1,14 @@
-
-
-
-
-
-
 <div class="restaurant-preview">
-	<a href="restaurants/{{$restaurant->id}}">
+	<a class="restaurant-preview-link" href="restaurants/{{$restaurant->id}}">
 		<div class="restaurant-preview-name">
 			{{$restaurant->name}}
 		</div>
 		<div class="restaurant-preview-address">
 			{{$restaurant->address}} <br>
 			{{$restaurant->suburb}} {{$restaurant->postcode}} {{$restaurant->state}}
+			@admin
+				<br>Email: {{$restaurant->email}}
+			@endadmin
 		</div>
 		<div class="restaurant-preview-img" 
 			@if (($product = $restaurant->products()->whereNotNull('image')->first()))
@@ -19,4 +16,37 @@
 			@endif>
 		</div>
 	</a>
+	@admin
+		@if ($restaurant->verification)
+			<a class="restaurant-preview-unverify" href="#" onclick="event.preventDefault(); document.getElementById('unverify-form-{{$restaurant->id}}').submit();">
+				unverify
+			</a>
+			<form id="unverify-form-{{$restaurant->id}}" action="{{route('unverify')}}" method="POST" style="display: none;">
+				@csrf
+				<input type="hidden" value="{{$restaurant->id}}" name="id">
+			</form>
+		@else
+			<a class="restaurant-preview-verify" href="#" onclick="event.preventDefault(); document.getElementById('verify-form-{{$restaurant->id}}').submit();">
+				verify
+			</a>
+			<form id="verify-form-{{$restaurant->id}}" action="{{route('verify')}}" method="POST" style="display: none;">
+				@csrf
+				<input type="hidden" value="{{$restaurant->id}}" name="id">
+			</form>
+		@endif
+	@else
+		@restaurant
+			@if (\Auth::user()->id === $restaurant->id)
+				@if ($restaurant->verification)
+					<span class="restaurant-preview-verified">
+						verified
+					</span>
+				@else
+					<span class="restaurant-preview-pending">
+						verification<br>pending
+					</span>
+				@endif
+			@endif
+		@endrestaurant
+	@endadmin
 </div>

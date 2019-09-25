@@ -27,16 +27,20 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+		Blade::if('cart', function () {
+			return !!(Product::totalInCart());
+		});
 		Blade::if('customer', function () {
 			$user = Auth::user();
 			return !!(!empty($user) && $user->type === 'customer');
 		});
-		Blade::if('cart', function () {
-			return !!(Product::totalInCart());
-		});
-		Blade::if('isrestaurant', function () {
+		Blade::if('restaurant', function () {
 			$user = Auth::user();
 			return !!(!empty($user) && $user->type === 'restaurant');
+		});
+		Blade::if('admin', function () {
+			$user = Auth::user();
+			return !!(!empty($user) && $user->type === 'administrator');
 		});
 	}
 }
