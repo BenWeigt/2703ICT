@@ -1,5 +1,16 @@
 @extends('layouts/app')
 @section('content')
+
+	@restaurant
+		
+		Store total: {{($report = grubly\Purchase::getSalesReport())['running']}}<br>
+		This week: ${{array_shift($report['weekly'])}} <br>
+		1 week ago: ${{array_shift($report['weekly'])}} <br>
+		@foreach ($report['weekly'] as $total)
+			{{$loop->index + 2}} weeks ago: ${{$total}}<br>
+		@endforeach
+
+	@endrestaurant
 	<section class="reciept-index">
 		@restaurant
 			{{-- Restaurant sees all purchases made to them --}}

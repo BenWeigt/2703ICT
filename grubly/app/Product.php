@@ -4,6 +4,7 @@ namespace grubly;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use grubly\Purchase;
 use grubly\Restaurant;
 
 class Product extends Model
@@ -54,9 +55,6 @@ class Product extends Model
 		return Restaurant::find($cart['restaurant_id']);
 	}
 
-
-
-
 	public static function addToCart(Product $product)
 	{
 		if (!empty(Auth::user()) && Auth::user()->can('addToCart', $product))
@@ -96,6 +94,30 @@ class Product extends Model
 			return view('components.cart');
 		}
 		abort(418); // HTCPCP/1.0
+	}
+
+	/**
+	 * Gets the 5 most popular products over the last 30 days
+	 */
+	public static function mostPopular()
+	{
+		$date = \Carbon\Carbon::now()->subDays(30);
+		$purchases = Purchase::where('created_at', '>=', date($date))->get();
+		$purchaseCounts = [];
+		foreach ($purchases as $purchase) {
+			foreach ($purchase->products as $product) {
+				if (isset($purchaseCounts[$product['id']]))
+					$purchaseCounts[$product['id']] += $product['inCart'];
+				else 
+					$purchaseCounts[$product['id']] = $product['inCart'];
+			}
+		}
+		arsort($purchaseCounts);
+		$products = [];
+		foreach (array_slice($purchaseCounts, 0, 5, true) as $productId => $count) {
+			$products[] = Product::find($productId);
+		}
+		return collect($products);
 	}
 
 	public static function clearCart()

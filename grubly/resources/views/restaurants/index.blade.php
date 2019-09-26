@@ -5,6 +5,9 @@
 			@include('components.restaurantpreview', ['restaurant' => grubly\Restaurant::find(\Auth::user()->id)])
 		</section>
 	@endrestaurant
+
+	{{-- {{ dump(grubly\Product::mostPopular()) }} --}}
+
 	@can ('viewAny', grubly\Restaurant::class)
 		<h2>Restaurants Pending Verification</h2>
 		<section class="pending-restaurants">
