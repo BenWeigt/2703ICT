@@ -32,6 +32,13 @@ class Restaurant extends User
 		return $this->hasMany('grubly\Product');
 	}
 
+	/**
+	 * Link purchases to this Restaurant (one to many)
+	 */
+  function purchases() {
+		return $this->hasMany('grubly\Purchase');
+	}
+
 	function verification() {
 		return $this->hasOne('grubly\Verification');
 	}

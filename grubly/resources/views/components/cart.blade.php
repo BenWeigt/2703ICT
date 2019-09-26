@@ -34,9 +34,18 @@
 					</div>
 				</div>
 			@endforeach
+			<div id="cart-total">
+				${{number_format(grubly\Product::allInCart()->sum('price'), 2)}}
+			</div>
 			<div id="cart-clear">
 				Clear Cart
 			</div>
+			<form method="POST" class="form" action="{{route('purchases.store')}}">
+				@csrf
+				<div id="purchase" onclick="this.parentNode.submit();">
+					Confirm
+				</div>
+			</form>
 		</div>
 	</div>
 	<script>

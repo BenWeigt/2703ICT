@@ -67,6 +67,7 @@ nav {
 	font-size: 18px;
 	border-radius: 4px;
 	border: 1px solid #558B2F;
+	transition: background-color 50ms ease, box-shadow 50ms ease;
 }
 
 .nav-auth:last-child {
@@ -206,20 +207,35 @@ nav {
 	grid-template-areas: "i n"
 	                     "i p";
 }
-#cart-clear {
+#cart-clear, #purchase {
 	cursor: pointer;
 	height: 40px;
-	background: #8BC34A;
+	background: #eee;
 	font-size: 20px;
-	color: white;
+	color: #222;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	text-align: center;
 	margin: 5px 20px;
 	border-radius: 4px;
-	border: 1px solid #558B2F;
+	border: 1px solid #cdcdcd;
 }
+#purchase {
+	background: #8BC34A;
+	color: #fff;
+	border: 1px solid #558B2F;
+	font-size: 46px;
+	height: 70px;
+	transition: all 50ms ease;
+}
+#cart-total {
+	text-align: right;
+	padding: 10px 20px 10px 0;
+	font-size: 35px;
+	color: #8BC34A;
+}
+
 
 .cart-product img, .product img {
 	height: 100%;
@@ -298,7 +314,9 @@ input[type="checkbox"]:before {
 .login input[type="checkbox"] {
 	width: 85px;
 }
-input[type="checkbox"]:checked:before {
+input[type="checkbox"]:checked:before,
+input[type="checkbox"]:hover:before,
+input[type="checkbox"]:active:before {
 	box-shadow: inset 0 0 4px 2px #689F38;
 	background: #7cb342;
 }
@@ -540,7 +558,7 @@ h2 {
 	border: 1px solid #558B2F;
 	margin: 0 10px 10px 10px;
 	width: calc(50% - 20px);
-	height: 200px;
+	height: 250px;
 	z-index: 0;
 	box-sizing: border-box;
 	overflow: hidden;
@@ -647,6 +665,7 @@ h2 {
 	display: inline-block;
 	vertical-align: bottom;
 	text-align: center;
+	transition: all 50ms ease;
 }
 
 .restaurant-products {
@@ -683,6 +702,7 @@ h2 {
 	border-radius: 4px;
 	border: 1px solid #558B2F;
 	justify-content: center;
+	transition: all 50ms ease;
 }
 .page-item.active {
 	box-shadow: inset 0 0 4px 2px #558B2F;
@@ -714,9 +734,89 @@ h2 {
 	border-radius: 4px;
 	background: #FF5722;
 	border: 1px solid #BF360C;
+	transition: all 50ms ease;
+}
+.decrement {
+	margin-left: 0;
 }
 .increment {
 	background: #8BC34A;
 	border: 1px solid #558B2F;
 	font-size: 19px;
+}
+
+.decrement:hover, .decrement:active {
+	box-shadow: inset 0 0 4px 2px #D84315;
+	background: #f4511e;
+}
+#purchase:hover, #purchase:active,
+#create-product:hover, #create-product:active,
+.increment:hover, .increment:active,
+.page-item:hover, .page-item:active,
+.nav-auth:hover, .nav-auth:active {
+	box-shadow: inset 0 0 4px 2px #689F38;
+	background: #7cb342;
+}
+#cart-clear:hover, #cart-clear:active {
+	box-shadow: inset 0 0 4px 2px #d1d1d1;
+	background: #dcdcdc;
+}
+.reciept {
+	position: relative;
+	width: 400px;
+	border: 1px solid #bcbcbc;
+	border-radius: 4px;
+	background: #ffffff;
+	box-shadow: 0 3px 4px -1px #888;
+	margin: 5px;
+	overflow: hidden;
+}
+.reciept-index .reciept {
+	max-height: 400px;
+}
+.reciept-index .reciept.expanded {
+	max-height: unset;
+}
+
+.reciept-total {
+	text-align: right;
+	padding: 10px 20px 10px 0;
+	font-size: 35px;
+	color: #8BC34A;
+	position: absolute;
+	right: 0;
+	top: 70px;
+}
+
+.reciept.clipped:not(.expanded):after {
+	content: "";
+	position: absolute;
+	display: block;
+	bottom: 0;
+	width: 100%;
+	height: 75px;
+	background: linear-gradient(0deg, rgb(255, 255, 255) 0, rgb(255, 255, 255) 20%, rgba(255, 255, 255, 0) 100%)
+}
+.reciept-title {
+	padding: 16px 20px 0 20px;
+	font-size: 20px;
+	font-style: italic;
+	color: #8BC34A;
+	text-align: center;
+}
+.reciept-details {
+	position: relative;
+	padding: 10px 20px 10px 20px;
+	font-size: 14px;
+}
+.reciept-address {
+	color: #5a5a5a;
+	padding: 5px 0 0 0;
+	font-size: smaller
+}
+.reciept-index {
+	padding: 50px;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
 }

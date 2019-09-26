@@ -24,8 +24,9 @@ Route::post('cart/clear', 'ProductController@clearCart')->name('clearCart');
 Route::post('verification/verify', 'VerificationController@verify')->name('verify');
 Route::post('verification/unverify', 'VerificationController@unverify')->name('unverify');
 
-// Connect ProductController and RestaurantController CRUD
+// Connect ProductController, RestaurantController and PurchaseController CRUD
 Route::resources([
 	'products' => 'ProductController',
-	'restaurants' => 'RestaurantController'
+	'restaurants' => 'RestaurantController',
+	'purchases' => 'PurchaseController'
 ]);

@@ -1,7 +1,7 @@
 (()=>{
-
-
-
+	/**
+	 * Exposed API
+	 */
 	window.genericSubmitRender = (form, nodeId, selector)=>{
 		fetch(form.action, {
 			method: form.method,
@@ -11,14 +11,9 @@
 		);
 	};
 
-
-
-
-
-
-
-
-
+	/**
+	 * Exposed API
+	 */
 	window.products = {
 		reRender(id) {
 			fetch(window._routes.products+'/'+id, {
@@ -29,6 +24,9 @@
 		}
 	};
 
+	/**
+	 * Exposed API
+	 */
 	window.cart = {
 		addProduct(productId) {
 			const data = new FormData();
@@ -61,7 +59,9 @@
 		}
 	};
 
-
+	/**
+	 * Private util
+	 */
 	function _reRenderWithResponse(selector, response)
 	{
 		// Convert response stream to text, which will contain the current html state of the cart

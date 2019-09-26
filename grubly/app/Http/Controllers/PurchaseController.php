@@ -3,10 +3,18 @@
 namespace grubly\Http\Controllers;
 
 use grubly\Purchase;
+use grubly\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth');
+		$this->authorizeResource(Purchase::class);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -14,7 +22,7 @@ class PurchaseController extends Controller
 	 */
 	public function index()
 	{
-		$this->middleware('auth');
+		return view('purchases.index');
 	}
 
 	/**
@@ -35,7 +43,25 @@ class PurchaseController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		$user = Auth::user();
+		$restaurant = Product::cartRestaurant();
+		$products = Product::allInCart();
+		Product::clearCart();
+
+		$purchase = new Purchase();
+		$purchase->user_id = $user->id;
+		$purchase->restaurant_id = $restaurant->id;
+		$purchase->total = $products->sum('price');
+		$purchase->products = $products;
+		$purchase->address = [
+			'address' => $user->address,
+			'suburb' => $user->suburb,
+			'postcode' => $user->postcode,
+			'state' => $user->state
+		];
+		$purchase->save();
+		
+		return redirect()->route('purchases.show', $purchase);
 	}
 
 	/**
@@ -46,7 +72,7 @@ class PurchaseController extends Controller
 	 */
 	public function show(Purchase $purchase)
 	{
-		//
+		return view('purchases.show', ['purchase' => $purchase]);
 	}
 
 	/**

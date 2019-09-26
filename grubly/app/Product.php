@@ -4,6 +4,7 @@ namespace grubly;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use grubly\Restaurant;
 
 class Product extends Model
 {
@@ -32,7 +33,6 @@ class Product extends Model
 		}
 		return $products;
 	}
-
 	public static function totalInCart()
 	{
 		$cart = session('cart');
@@ -46,6 +46,16 @@ class Product extends Model
 		}
 		return $count;
 	}
+	public static function cartRestaurant()
+	{
+		$cart = session('cart');
+		if (empty($cart))
+			return null;
+		return Restaurant::find($cart['restaurant_id']);
+	}
+
+
+
 
 	public static function addToCart(Product $product)
 	{

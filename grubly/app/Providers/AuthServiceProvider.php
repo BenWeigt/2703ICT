@@ -14,7 +14,8 @@ class AuthServiceProvider extends ServiceProvider
 	 */
 	protected $policies = [
 		'grubly\Restaurant' => 'grubly\Policies\RestaurantPolicy',
-		'grubly\Product' => 'grubly\Policies\ProductPolicy'
+		'grubly\Product' => 'grubly\Policies\ProductPolicy',
+		'grubly\Purchase' => 'grubly\Policies\PurchasePolicy'
 	];
 
 	/**

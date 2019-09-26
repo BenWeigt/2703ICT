@@ -38,6 +38,9 @@
 				</a>
 			@else
 				<div style="display: flex; justify-content: center;	flex-direction: column; color: #8BC34A; font-size: 20px;">Hi, {{ Auth::user()->name }}!</div>
+				<a class="nav-auth" href="{{route('purchases.index')}}">
+					History
+				</a>
 				<a class="nav-auth" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 					Logout
 					<form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">

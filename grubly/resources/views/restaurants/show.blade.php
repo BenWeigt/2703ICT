@@ -1,5 +1,4 @@
 @extends('layouts/app')
-
 @section('content')
 	{{-- Restaurant display --}}
 	<div class="restaurant">
@@ -13,14 +12,18 @@
 			</div>
 		</div>
 		@can('create', grubly\Product::class)
-			<a href="#" id="create-product" onclick="document.getElementById('product-create').style.display=''; this.style.visibility='hidden'; event.preventDefault();">
-				Create New
-			</a>
+			@if(\Auth::user()->id === $restaurant->id)
+				<a href="#" id="create-product" onclick="document.getElementById('product-create').style.display=''; this.style.visibility='hidden'; event.preventDefault();">
+					Create New
+				</a>
+			@endif
 		@endcan
 		{{-- Restaurant product list --}}
 		<section class="restaurant-products">
 			@can('create', grubly\Product::class)
-				@include('products.create')
+				@if(\Auth::user()->id === $restaurant->id)
+					@include('products.create')
+				@endif
 			@endcan
 			@foreach(($paginations = $restaurant->products()->paginate(5)) as $product)
 				@include('products.show', ['product' => $product])
