@@ -69,6 +69,25 @@ class Product extends Model
 		abort(418); // HTCPCP/1.0
 	}
 
+	public static function removeFromCart(Product $product)
+	{
+		if (!empty(Auth::user()) && Auth::user()->can('removeFromCart', $product))
+		{
+			// Get cart, decrement product (or remove if 0)
+			$cart = session('cart');
+			if (!empty($cart) && isset($cart['products'][$product->id]))
+			{
+				if ($cart['products'][$product->id] === 1)
+					unset($cart['products'][$product->id]);
+				else
+					$cart['products'][$product->id] -= 1;
+				session(['cart' => $cart]);
+			}
+			return view('components.cart');
+		}
+		abort(418); // HTCPCP/1.0
+	}
+
 	public static function clearCart()
 	{
 		session(['cart'=>null]);

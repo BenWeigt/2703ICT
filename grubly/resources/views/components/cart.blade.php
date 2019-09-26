@@ -25,7 +25,12 @@
 						{{$product->name}}
 					</div>
 					<div class="product-price">
-						${{number_format($product->price * $product->inCart, 2)}}
+						<div class="decrement" onclick="window.cart.removeProduct({{$product->id}})">-</div>
+						{{$product->inCart}}
+						<div class="increment" onclick="window.cart.addProduct({{$product->id}})">+</div>
+						<div style="margin-left: auto; padding-top: 17px;">
+							${{number_format($product->price * $product->inCart, 2)}}
+						</div>
 					</div>
 				</div>
 			@endforeach

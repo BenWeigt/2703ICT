@@ -39,6 +39,15 @@
 				body: data
 			}).then(_reRenderCartWithResponse);
 		},
+		removeProduct(productId) {
+			const data = new FormData();
+			data.append('product_id', productId);
+			fetch(window._routes.removeFromCart, {
+				method: 'POST',
+				headers: {'X-CSRF-TOKEN': window._csrfToken},
+				body: data
+			}).then(_reRenderCartWithResponse);
+		},
 		async clear() {
 			const response = fetch(window._routes.clearCart, {
 				method: 'POST',
@@ -84,14 +93,26 @@
 		let text = await response.text();
 		// Remove the current cart from the nav
 		let cart = document.getElementById('nav-cart');
+		let show = document.getElementById('cart-wrapper');
+		show = show ? show.classList.contains('active') : false;
 		if (cart)
 		{
 			while (cart.nextSibling)
 				cart.parentNode.removeChild(cart.nextSibling);
 			cart.parentNode.removeChild(cart);
 		}
+		if (!text)
+			return;
+
 		// Inject the new cart
-		document.querySelector('nav').innerHTML += text;
+		const template = document.createElement('template');
+		template.innerHTML = text;
+		if (show)
+			template.content.getElementById('cart-wrapper').classList.add('active');
+		for (const replacement of template.content.childNodes) {
+			document.querySelector('nav').appendChild(replacement);
+		}
+		
 		// The script included with the cart will not evaluate when injected via innerHTML, so regex
 		// out its content and eval it.
 		const script = text.match(/<script>([\s\S]*)<\/script>/);

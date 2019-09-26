@@ -26,6 +26,16 @@ class ProductController extends Controller
 		return view('components.cart');
 	}
 
+	public function removeFromCart(Request $request)
+	{
+		$product = Product::find($request->product_id);
+		if (!empty($product))
+		{
+			Product::removeFromCart($product);
+		}
+		return view('components.cart');
+	}
+
 	public function clearCart()
 	{
 		Product::clearCart();

@@ -16,9 +16,9 @@
 Auth::routes();
 // Root gets handled by RestaurantController->index and is also given the name 'home' for ease of redirects
 Route::get('/', 'RestaurantController@index')->name('home');
-// Connect add product to cart
+// Connect add/remove/clear cart
 Route::post('cart/add', 'ProductController@addToCart')->name('addToCart');
-// Connect clear cart
+Route::post('cart/remove', 'ProductController@removeFromCart')->name('removeFromCart');
 Route::post('cart/clear', 'ProductController@clearCart')->name('clearCart');
 
 Route::post('verification/verify', 'VerificationController@verify')->name('verify');

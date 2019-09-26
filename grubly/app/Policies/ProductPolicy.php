@@ -27,6 +27,17 @@ class ProductPolicy
 	}
 
 	/**
+	 * Determine whether the user can remove products from the cart.
+	 *
+	 * @param  \grubly\User  $user
+	 * @return mixed
+	 */
+	public function removeFromCart(User $user)
+	{
+		return !!($user->type === 'customer');
+	}
+
+	/**
 	 * Determine whether the user can view any products.
 	 *
 	 * @param  \grubly\User  $user

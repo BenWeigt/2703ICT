@@ -6,6 +6,7 @@
 		<script>
 			window._routes = {
 				addToCart: '{{route('addToCart')}}',
+				removeFromCart: '{{route('removeFromCart')}}',
 				clearCart: '{{route('clearCart')}}',
 				products: '{{url('products')}}'
 			};

@@ -233,7 +233,11 @@ nav {
 .cart-product .product-price, .product .product-price {
 	grid-area: p;
 }
-
+.cart-product .product-price {
+	display: flex;
+	align-items: center;
+	padding-top: 22px;
+}
 
 .register, .login {
 	display: flex;
@@ -694,4 +698,25 @@ h2 {
 
 .delete a:before {
 	background: #FF5722;
+}
+
+.increment, .decrement {
+	cursor: pointer;
+	height: 25px;
+	font-size: 27px;
+	color: white;
+	display: inline-flex;
+	width: 25px;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	margin: 5px;
+	border-radius: 4px;
+	background: #FF5722;
+	border: 1px solid #BF360C;
+}
+.increment {
+	background: #8BC34A;
+	border: 1px solid #558B2F;
+	font-size: 19px;
 }
