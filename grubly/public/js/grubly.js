@@ -2,13 +2,29 @@
 	/**
 	 * Exposed API
 	 */
-	window.genericSubmitRender = (form, nodeId, selector)=>{
-		fetch(form.action, {
+	window.genericSubmitRender = async (form, nodeId, selector)=>{
+		let response = await fetch(form.action, {
 			method: form.method,
 			body: new FormData(form)
-		}).then(response=>
-			_reRenderWithResponse(selector || ('#'+nodeId), response)
-		);
+		});
+		await _reRenderWithResponse(selector || ('#'+nodeId), response);
+	};
+
+	window.ensureProductCreateExists = function(){
+		if (!document.getElementById('product-create'))
+		{
+			fetch(window._routes.productsCreate, {
+				method: 'GET'
+			}).then(async response=>{
+				// Convert response stream to text, which will contain the current html state of the cart
+				let text = await response.text();
+				const template = document.createElement('template');
+				template.innerHTML = text;
+				const create = template.content.getElementById('product-create');
+				if (create)
+					document.querySelector('.restaurant-products').prepend(create);
+			});
+		}
 	};
 
 	/**
@@ -62,20 +78,19 @@
 	/**
 	 * Private util
 	 */
-	function _reRenderWithResponse(selector, response)
+	async function _reRenderWithResponse(selector, response)
 	{
 		// Convert response stream to text, which will contain the current html state of the cart
-		response.text().then(text=>{
-			const old = document.querySelector(selector);
-			if (!old)
-				return;
-			const template = document.createElement('template');
-			template.innerHTML = text;
-			const replacement = template.content.querySelector(selector);
-			if (replacement)
-				old.parentNode.insertBefore(replacement, old);
-			old.parentNode.removeChild(old);
-		});
+		let text = await response.text();
+		const old = document.querySelector(selector);
+		if (!old)
+			return;
+		const template = document.createElement('template');
+		template.innerHTML = text;
+		const replacement = template.content.querySelector(selector);
+		if (replacement)
+			old.parentNode.insertBefore(replacement, old);
+		old.parentNode.removeChild(old);
 	}
 
 	/**

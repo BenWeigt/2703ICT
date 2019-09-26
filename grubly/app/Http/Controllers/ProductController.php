@@ -2,6 +2,7 @@
 
 namespace grubly\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -91,8 +92,9 @@ class ProductController extends Controller
 				})
 			],
 			'price' => ['required', 'numeric', 'min:0.05'],
-			'image' => ['nullable', 'string', 'max:255']
+			'image' => ['nullable', 'image']
 		]);
+
 		if ($validator->fails())
 			return redirect()->route('products.create')->withErrors($validator)->withInput();
 
@@ -100,6 +102,7 @@ class ProductController extends Controller
 		$product->name = $request->name;
 		$product->price = $request->price;
 		$product->restaurant_id = Auth::user()->id;
+		$product->image = $request->image ? url(Storage::url($request->image->store('productimages', 'public'))) : null;
 		$product->save();
 		return view('products.show', ['product' => $product]);
 	}
@@ -115,8 +118,6 @@ class ProductController extends Controller
 		return view('products.show', ['product' => $product]);
 	}
 
-
-
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -129,14 +130,14 @@ class ProductController extends Controller
 		$validator = Validator::make($request->all(), [
 			'name' => ['required', 'string', 'max:255'],
 			'price' => ['required', 'numeric', 'min:0.05'],
-			'image' => ['nullable', 'string', 'max:255']
+			'image' => ['nullable', 'image']
 		]);
 		if ($validator->fails())
 			return redirect()->route('products.update', $product)->withErrors($validator)->withInput();
 
 		$product->name = $request->name;
 		$product->price = floor($request->price*100) / 100;
-		$product->image = $request->image ?? $product->image;
+		$product->image = $request->image ? url(Storage::url($request->image->store('productimages', 'public'))) : $product->image;
 		$product->save();
 		return redirect()->route('products.show', $product);
 	}

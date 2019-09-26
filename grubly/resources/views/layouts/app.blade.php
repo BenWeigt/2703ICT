@@ -8,6 +8,7 @@
 				addToCart: '{{route('addToCart')}}',
 				removeFromCart: '{{route('removeFromCart')}}',
 				clearCart: '{{route('clearCart')}}',
+				productsCreate: '{{route('products.create')}}',
 				products: '{{url('products')}}'
 			};
 			window._csrfToken = '{{csrf_token()}}';

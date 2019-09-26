@@ -16,10 +16,13 @@
 					<strong>{{ $message }}</strong>
 				@enderror
 			</span>
+			<div class="product-image-upload" onclick="this.firstElementChild.click();">
+				<input type="file" name="image" style="display: none;" onchange="if (this.files.length){ this.form.querySelector('.product-img').style.backgroundImage = 'url(&quot;' + window.URL.createObjectURL(this.files[0]) + '&quot;)'; }">
+			</div>
 		</div>
 		<div class="product-img">
 		</div>
-		<a class="restaurant-preview-unverify" href="#" style="display: none;" onclick="event.preventDefault(); genericSubmitRender(this.parentNode, 'product-create', '.product');">
+		<a class="restaurant-preview-unverify" href="#" style="display: none;" onclick="event.preventDefault(); genericSubmitRender(this.parentNode, 'product-create', '.product').then(()=>window.ensureProductCreateExists());">
 			Save&nbsp;&nbsp;
 		</a>
 	</form>

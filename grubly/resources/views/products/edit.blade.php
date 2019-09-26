@@ -1,5 +1,4 @@
 <div class="product editable" id="product-{{$product->id}}">
-
 	<form method="POST" class="delete" action="{{route('products.update', $product)}}" style="display: block;position: absolute; width: 100%;height: 100%;">
 		@csrf @method('delete')
 		<a class="restaurant-preview-unverify" href="#" onclick="event.preventDefault(); genericSubmitRender(this.parentNode, 'product-{{$product->id}}');">
@@ -21,10 +20,13 @@
 					<strong>{{ $message }}</strong>
 				@enderror
 			</span>
+			<div class="product-image-upload" onclick="this.firstElementChild.click();">
+				<input type="file" name="image" style="display: none;" onchange="if (this.files.length){ this.form.querySelector('.product-img').style.backgroundImage = 'url(&quot;' + window.URL.createObjectURL(this.files[0]) + '&quot;)'; }">
+			</div>
 		</div>
 		<div class="product-img" @if ($product->image)style="background-image: url('{{$product->image}}');"@endif>
 		</div>
-		<a class="restaurant-preview-unverify" href="#" style="display: none;" onclick="event.preventDefault(); genericSubmitRender(this.parentNode, 'product-{{$product->id}}');">
+		<a class="restaurant-preview-unverify" href="#" style="display: none;" onclick="event.preventDefault(); genericSubmitRender(this.parentNode, 'product-{{$product->id}}')">
 			Update
 		</a>
 	</form>
