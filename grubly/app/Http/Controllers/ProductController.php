@@ -2,6 +2,7 @@
 
 namespace grubly\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use grubly\Product;
@@ -83,7 +84,12 @@ class ProductController extends Controller
 	public function store(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
-			'name' => ['required', 'string', 'max:255'],
+			'name' => [
+				'required', 'string', 'max:255',
+				Rule::unique('products')->where(function ($query) {
+					return $query->where('restaurant_id', Auth::user()->id);
+				})
+			],
 			'price' => ['required', 'numeric', 'min:0.05'],
 			'image' => ['nullable', 'string', 'max:255']
 		]);

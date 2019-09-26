@@ -13,7 +13,7 @@
 		</div>
 		@can('create', grubly\Product::class)
 			@if(\Auth::user()->id === $restaurant->id)
-				<a href="#" id="create-product" onclick="document.getElementById('product-create').style.display=''; this.style.visibility='hidden'; event.preventDefault();">
+				<a href="#" id="create-product" onclick="document.getElementById('product-create').style.display=''; event.preventDefault();">
 					Create New
 				</a>
 			@endif

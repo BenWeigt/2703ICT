@@ -1,9 +1,24 @@
 @extends('layouts/app')
 @section('content')
 	<section class="reciept-index">
-		@foreach (\Auth::user()->purchases as $purchase)
-			@include('components.reciept', ['purchase', $purchase])
-		@endforeach
+		@restaurant
+			{{-- Restaurant sees all purchases made to them --}}
+			@foreach (grubly\Restaurant::find(\Auth::user()->id)->purchases as $purchase)
+				@include('components.reciept', ['purchase', $purchase])
+			@endforeach
+		@else
+			@admin
+				{{-- Admin sees all history (for easier demo purposes) --}}
+				@foreach (grubly\Purchase::all() as $purchase)
+					@include('components.reciept', ['purchase', $purchase])
+				@endforeach
+			@else
+				{{-- Customer sees their purchases --}}
+				@foreach (\Auth::user()->purchases as $purchase)
+					@include('components.reciept', ['purchase', $purchase])
+				@endforeach
+			@endadmin
+		@endrestaurant
 	</section>
 	<script>
 		(()=>{
@@ -21,6 +36,5 @@
 				}
 			});
 		})();
-
 	</script>
 @endsection
