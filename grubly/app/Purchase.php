@@ -21,7 +21,6 @@ class Purchase extends Model
 	public static function getSalesReport()
 	{
 		$restaurant = Restaurant::find(Auth::user()->id);
-		$date = \Carbon\Carbon::now()->subDays(30);
 		$weeklyTotals = [];
 		for ($i=0; $i < 12; $i++) {
 			$purchases = $restaurant->purchases()->whereBetween('created_at', [
@@ -32,6 +31,7 @@ class Purchase extends Model
 		}
 		return [
 			'weekly' => $weeklyTotals,
+			'max' => max($weeklyTotals),
 			'running' => $restaurant->purchases->sum('total')
 		];
 	}

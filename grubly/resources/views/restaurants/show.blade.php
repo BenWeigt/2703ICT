@@ -29,8 +29,6 @@
 				@include('products.show', ['product' => $product])
 			@endforeach
 		</section>
-		<div class="restaurant-products-pagination">
-			{{$paginations}}
-		</div>
+		{{$paginations}}
 	</div>
 @endsection

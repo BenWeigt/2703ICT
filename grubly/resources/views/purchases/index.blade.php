@@ -2,13 +2,19 @@
 @section('content')
 
 	@restaurant
-		
-		Store total: {{($report = grubly\Purchase::getSalesReport())['running']}}<br>
-		This week: ${{array_shift($report['weekly'])}} <br>
-		1 week ago: ${{array_shift($report['weekly'])}} <br>
+		<div class="sales-graph-total">Lifetime Sales Total: ${{($report = grubly\Purchase::getSalesReport())['running']}}</div>
+		<div class="sales-graph">
 		@foreach ($report['weekly'] as $total)
-			{{$loop->index + 2}} weeks ago: ${{$total}}<br>
+			<div class="sales-graph-bar" style="height: {{$total/$report['max']*100}}%">
+				<div class="sales-graph-bar-value">
+					${{number_format($total, 2)}}
+				</div>
+				<div class="sales-graph-bar-label">
+					{{$loop->index==0 ? 'This Week' : ($loop->index==1 ? 'Last Week' : $loop->index.' Weeks Ago')}}
+				</div>
+			</div>
 		@endforeach
+		</div>
 
 	@endrestaurant
 	<section class="reciept-index">
@@ -17,10 +23,19 @@
 			@foreach (grubly\Restaurant::find(\Auth::user()->id)->purchases as $purchase)
 				@include('components.reciept', ['purchase', $purchase])
 			@endforeach
+
+
+			@foreach(($paginations = grubly\Restaurant::find(\Auth::user()->id)->purchases()->paginate(1)) as $purchase)
+				@include('components.reciept', ['purchase', $purchase])
+			@endforeach
 		@else
 			@admin
 				{{-- Admin sees all history (for easier demo purposes) --}}
 				@foreach (grubly\Purchase::all() as $purchase)
+					@include('components.reciept', ['purchase', $purchase])
+				@endforeach
+
+				@foreach(($paginations = grubly\Purchase::all()->paginate(1)) as $purchase)
 					@include('components.reciept', ['purchase', $purchase])
 				@endforeach
 			@else
@@ -28,9 +43,16 @@
 				@foreach (\Auth::user()->purchases as $purchase)
 					@include('components.reciept', ['purchase', $purchase])
 				@endforeach
+
+				@foreach(($paginations = \Auth::user()->purchases()->paginate(1)) as $purchase)
+					@include('components.reciept', ['purchase', $purchase])
+				@endforeach
 			@endadmin
 		@endrestaurant
 	</section>
+	<div class="restaurant-products-pagination">
+		{{$paginations}}
+	</div>
 	<script>
 		(()=>{
 			document.addEventListener('DOMContentLoaded', ()=>{
