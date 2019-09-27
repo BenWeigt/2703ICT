@@ -20,31 +20,18 @@
 	<section class="reciept-index">
 		@restaurant
 			{{-- Restaurant sees all purchases made to them --}}
-			@foreach (grubly\Restaurant::find(\Auth::user()->id)->purchases as $purchase)
-				@include('components.reciept', ['purchase', $purchase])
-			@endforeach
-
-
-			@foreach(($paginations = grubly\Restaurant::find(\Auth::user()->id)->purchases()->paginate(1)) as $purchase)
+			@foreach(($paginations = grubly\Restaurant::find(\Auth::user()->id)->purchases()->paginate(8)) as $purchase)
 				@include('components.reciept', ['purchase', $purchase])
 			@endforeach
 		@else
 			@admin
 				{{-- Admin sees all history (for easier demo purposes) --}}
-				@foreach (grubly\Purchase::all() as $purchase)
-					@include('components.reciept', ['purchase', $purchase])
-				@endforeach
-
-				@foreach(($paginations = grubly\Purchase::all()->paginate(1)) as $purchase)
+				@foreach(($paginations = grubly\Purchase::paginate(8)) as $purchase)
 					@include('components.reciept', ['purchase', $purchase])
 				@endforeach
 			@else
 				{{-- Customer sees their purchases --}}
-				@foreach (\Auth::user()->purchases as $purchase)
-					@include('components.reciept', ['purchase', $purchase])
-				@endforeach
-
-				@foreach(($paginations = \Auth::user()->purchases()->paginate(1)) as $purchase)
+				@foreach(($paginations = \Auth::user()->purchases()->paginate(8)) as $purchase)
 					@include('components.reciept', ['purchase', $purchase])
 				@endforeach
 			@endadmin

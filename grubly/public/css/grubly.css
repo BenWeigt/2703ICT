@@ -430,6 +430,9 @@ h2 {
 	padding: 30px 50px;
 	justify-content: center;
 }
+.restaurant-list {
+	padding: 10px 50px 30px 50px;
+}
 
 .own-restaurant .restaurant-preview {
 	width: 66%;
@@ -457,6 +460,11 @@ h2 {
 	margin: 0 10px 10px 10px;
 	width: calc(50% - 82px);
 	overflow: hidden;
+	transition: all 50ms ease;
+}
+
+.restaurant-preview:hover {
+	box-shadow: 0px 2px 3px 2px #9d9d9d, 0 0 0 1px #558B2F;
 }
 
 .restaurant-preview-link {
@@ -563,7 +571,8 @@ h2 {
 	box-sizing: border-box;
 	overflow: hidden;
 }
-.product.purchaseable:before {
+.product.purchaseable:before,
+.product.linked-to-restaurant:before {
 	content: "Add to order";
 	display: flex;
 	background: #0005;
@@ -582,8 +591,13 @@ h2 {
 	opacity: 0;
 	transition: opacity 200ms ease;
 }
-.product.purchaseable:hover:before {
+.product.purchaseable:hover:before,
+.product.linked-to-restaurant:hover:before {
 	opacity: 1;
+}
+.product.linked-to-restaurant:before {
+	font-size: 30px;
+	content: attr(data-hover)
 }
 
 .product .product-img {
