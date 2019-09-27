@@ -1,5 +1,8 @@
 @extends('layouts/app')
+
+{{-- restaurant.show --}}
 @section('content')
+
 	{{-- Restaurant display --}}
 	<div class="restaurant">
 		<div class="restaurant-info">
@@ -11,6 +14,8 @@
 				{{$restaurant->suburb}} {{$restaurant->postcode}} {{$restaurant->state}}
 			</div>
 		</div>
+
+		{{-- User that is also this restaurant and can add products sees create method --}}
 		@can('create', grubly\Product::class)
 			@if(\Auth::user()->id === $restaurant->id)
 				<a href="#" id="create-product" onclick="document.getElementById('product-create').style.display=''; event.preventDefault();">
@@ -18,7 +23,8 @@
 				</a>
 			@endif
 		@endcan
-		{{-- Restaurant product list --}}
+
+		{{-- Restaurant product list, paginated --}}
 		<section class="restaurant-products">
 			@can('create', grubly\Product::class)
 				@if(\Auth::user()->id === $restaurant->id)

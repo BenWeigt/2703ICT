@@ -1,8 +1,11 @@
+{{-- Standard master design for Grubly --}}
 <!DOCTYPE html>
 <html>
 	<head>
 		<link href="{{asset('css/grubly.css')}}" rel="stylesheet">
 		<script src="{{asset('js/grubly.js')}}"></script>
+
+		{{-- Routes and csrf token for grubly.js --}}
 		<script>
 			window._routes = {
 				addToCart: '{{route('addToCart')}}',
@@ -19,6 +22,8 @@
 	</head>
 	<body>
 		<nav>
+
+			{{-- Logo and home nav --}}
 			<a id="nav-title" href="{{route('home')}}">
 				<svg id="nav-title-logo" xmlns="http://www.w3.org/2000/svg" fill="#fff" version="1.1" viewBox="0 0 90 30">
 					<path d="M16,1h-2C6.832,1,1,6.832,1,14c0,0.552,0.447,1,1,1h26c0.553,0,1-0.448,1-1C29,6.832,23.168,1,16,1z M3.045,13  C3.552,7.401,8.271,3,14,3h2c5.729,0,10.448,4.401,10.955,10H3.045z"/>
@@ -30,6 +35,8 @@
 					<text x="30" y="22" style="font: 20px 'Roboto', sans-serif">Grubly</text>
 				</svg>
 			</a>
+
+			{{-- Guests can login and register --}}
 			@guest
 				<a class="nav-auth" href="{{route('login')}}">
 					Login
@@ -38,10 +45,14 @@
 					Register
 				</a>
 			@else
+
+				{{-- Authed users can view their history (sales and statistics for restaurants, purchase history for customers, all purchases for administrators) --}}
 				<div style="display: flex; justify-content: center;	flex-direction: column; color: #8BC34A; font-size: 20px;">Hi, {{ Auth::user()->name }}!</div>
 				<a class="nav-auth" href="{{route('purchases.index')}}">
 					History
 				</a>
+
+				{{-- Authed users can logout --}}
 				<a class="nav-auth" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 					Logout
 					<form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
@@ -49,6 +60,8 @@
         	</form>
 				</a>
 			@endauth
+
+			{{-- Include cart --}}
 			@include('components.cart')
 		</nav>
     @yield('content')

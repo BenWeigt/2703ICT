@@ -1,6 +1,9 @@
 @extends('layouts/app')
+
+{{-- purchases.index --}}
 @section('content')
 
+	{{-- Restaurants see their own sales statistics, graphed --}}
 	@restaurant
 		<div class="sales-graph-total">Lifetime Sales Total: ${{($report = grubly\Purchase::getSalesReport())['running']}}</div>
 		<div class="sales-graph">
@@ -15,8 +18,9 @@
 			</div>
 		@endforeach
 		</div>
-
 	@endrestaurant
+
+	{{-- Purchase history, paginated --}}
 	<section class="reciept-index">
 		@restaurant
 			{{-- Restaurant sees all purchases made to them --}}
@@ -40,6 +44,8 @@
 	<div class="restaurant-products-pagination">
 		{{$paginations}}
 	</div>
+
+	{{-- Script handles long reciepts, alowing a user to click a clipped reciept to expand it to full length --}}
 	<script>
 		(()=>{
 			document.addEventListener('DOMContentLoaded', ()=>{

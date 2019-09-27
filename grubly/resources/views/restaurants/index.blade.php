@@ -1,12 +1,17 @@
 @extends('layouts/app')
+
+{{-- restaurants.index will be displayed on landing --}}
 @section('content')
+
+	{{-- Restaurant see their own restaurant, regardless of verification --}}
 	@restaurant
 		<section class="own-restaurant">
 			@include('components.restaurantpreview', ['restaurant' => grubly\Restaurant::find(\Auth::user()->id)])
 		</section>
 	@endrestaurant
 
-	@can ('viewAny', grubly\Restaurant::class)
+	{{-- Administrator see all unverified restaurants --}}
+	@can('viewAny', grubly\Restaurant::class)
 		<h2>Restaurants Pending Verification</h2>
 		<section class="pending-restaurants">
 			@foreach (grubly\Restaurant::allUnverified() as $restaurant)
@@ -15,7 +20,10 @@
 		</section>
 	@endcan
 
-	<div style="font-size: 50px; color: #8BC34A; padding: 20px 0 0 60px;">Popular at the moment</div>
+	{{-- Everyone sees the 5 most popular dishes in the last 30 days --}}
+	<div style="font-size: 50px; color: #8BC34A; padding: 20px 0 0 60px;">
+		Popular at the moment
+	</div>
 	<div class="restaurant-products" style="padding: 10px 55px 30px 55px;">
 		@foreach (grubly\Product::mostPopular() as $product)
 			<div class="product linked-to-restaurant"
@@ -34,6 +42,8 @@
 			</div>
 		@endforeach
 	</div>
+
+	{{-- Everyone sees all verified restaurants --}}
 	<div style="font-size: 50px; color: #8BC34A; padding: 20px 0 0 60px;">Restaurants</div>
 	<section class="restaurant-list">
 		@foreach (grubly\Restaurant::allVerified() as $restaurant)

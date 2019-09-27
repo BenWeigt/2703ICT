@@ -1,4 +1,6 @@
 @extends('layouts.app')
+
+{{-- A visual rework of the standard auth.login --}}
 @section('content')
 	<section class="login">
 		<form method="POST" class="form" action="{{ route('login') }}">
