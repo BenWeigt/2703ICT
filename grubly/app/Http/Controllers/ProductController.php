@@ -15,9 +15,13 @@ class ProductController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth', ['except'=>['index','show']]);
+		// Gate with ProductPolicy
 		$this->authorizeResource(Product::class);
 	}
 
+	/**
+	 * Endpoint for adding product to cart
+	 */
 	public function addToCart(Request $request)
 	{
 		$product = Product::find($request->product_id);
@@ -28,6 +32,9 @@ class ProductController extends Controller
 		return view('components.cart');
 	}
 
+	/**
+	 * Endpoint for removing product from cart
+	 */
 	public function removeFromCart(Request $request)
 	{
 		$product = Product::find($request->product_id);
@@ -38,6 +45,9 @@ class ProductController extends Controller
 		return view('components.cart');
 	}
 
+	/**
+	 * Endpoint for clearing cart
+	 */
 	public function clearCart()
 	{
 		Product::clearCart();
@@ -87,6 +97,7 @@ class ProductController extends Controller
 		$validator = Validator::make($request->all(), [
 			'name' => [
 				'required', 'string', 'max:255',
+				// Unique product name, but only for products of the same restaurant
 				Rule::unique('products')->where(function ($query) {
 					return $query->where('restaurant_id', Auth::user()->id);
 				})
@@ -102,6 +113,7 @@ class ProductController extends Controller
 		$product->name = $request->name;
 		$product->price = $request->price;
 		$product->restaurant_id = Auth::user()->id;
+		// This looks like a redundant double wrap; its not.
 		$product->image = $request->image ? url(Storage::url($request->image->store('productimages', 'public'))) : null;
 		$product->save();
 		return view('products.show', ['product' => $product]);
@@ -137,8 +149,10 @@ class ProductController extends Controller
 
 		$product->name = $request->name;
 		$product->price = floor($request->price*100) / 100;
+		// This looks like a redundant double wrap; its not.
 		$product->image = $request->image ? url(Storage::url($request->image->store('productimages', 'public'))) : $product->image;
 		$product->save();
+
 		return redirect()->route('products.show', $product);
 	}
 

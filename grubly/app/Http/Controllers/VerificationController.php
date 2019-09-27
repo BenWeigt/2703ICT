@@ -11,6 +11,7 @@ class VerificationController extends Controller
 {
 	public function verify(Request $request)
 	{
+		// Authenticate and verify
 		$user = Auth::user();
 		$restaurant = Restaurant::find($request->id);
 		if (empty($user) || empty($restaurant))
@@ -26,6 +27,7 @@ class VerificationController extends Controller
 
 	public function unverify(Request $request)
 	{
+		// Authenticate and unverify
 		$user = Auth::user();
 		$restaurant = Restaurant::find($request->id);
 		if (empty($user) || empty($restaurant))
@@ -35,6 +37,7 @@ class VerificationController extends Controller
 		if (empty($restaurant->verification))
 			return back();
 		$restaurant->verification()->delete();
+		
 		return back();
 	}
 }

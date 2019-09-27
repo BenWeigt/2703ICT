@@ -10,6 +10,7 @@ class RestaurantController extends Controller
 {
 	public function __construct()
 	{
+		// Gate with RestaurantPolicy
 		$this->authorizeResource(Restaurant::class);
 	}
 		

@@ -12,6 +12,7 @@ class PurchaseController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
+		// Gate with PurchasePolicy
 		$this->authorizeResource(Purchase::class);
 	}
 
@@ -52,13 +53,13 @@ class PurchaseController extends Controller
 		$purchase->user_id = $user->id;
 		$purchase->restaurant_id = $restaurant->id;
 		$purchase->total = $products->sum('price');
-		$purchase->products = $products;
+		$purchase->products = $products; // Eloquent will cast this in and out of JSON
 		$purchase->address = [
 			'address' => $user->address,
 			'suburb' => $user->suburb,
 			'postcode' => $user->postcode,
 			'state' => $user->state
-		];
+		]; // Eloquent will cast this in and out of JSON
 		$purchase->save();
 		
 		return redirect()->route('purchases.show', $purchase);
