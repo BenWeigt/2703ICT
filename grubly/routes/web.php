@@ -13,8 +13,13 @@
 	// Generates all authentication routes
 	Auth::routes();
 
+	// About doc
+	Route::get('/', function() {
+		return view('about.about');
+	});
+
 	// Root gets handled by RestaurantController->index and is also given the name 'home' for ease of redirects
-	Route::get('/', 'RestaurantController@index')->name('home');
+	Route::get('/about', 'RestaurantController@index')->name('home');
 
 	// Connect add/remove/clear cart
 	Route::post('cart/add', 'ProductController@addToCart')->name('addToCart');
