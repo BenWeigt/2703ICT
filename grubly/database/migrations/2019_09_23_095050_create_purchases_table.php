@@ -13,16 +13,16 @@ class CreatePurchasesTable extends Migration
 	 */
 	public function up()
 	{
+		/**
+		 * Purchases should be essentially immutable after creation. We will JSON serialize the
+		 * purchase details (products, address) here rather than link to their id's to prevent 
+		 * mutations/removals on those entities corrupting our reciept data.
+		 */
 		Schema::create('purchases', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->bigInteger('user_id');
 			$table->bigInteger('restaurant_id');
 			$table->float('total');
-			/**
-			 * Purchases should be essentially immutable after creation. We will JSON serialize the
-			 * purchase details (products, address) here rather than link to their id's to prevent 
-			 * mutations/removals on those entities corrupting our reciept data.
-			 */
 			$table->string('products');
 			$table->string('address');
 			$table->timestamps();
