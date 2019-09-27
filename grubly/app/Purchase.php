@@ -13,11 +13,9 @@ class Purchase extends Model
 		'address' => 'array'
 	];
 
-	function user()
-	{
-		return $this->belongsTo('grubly\User');
-	}
-
+	/**
+	 * Generate a sales report for the logged in restaurant
+	 */
 	public static function getSalesReport()
 	{
 		$restaurant = Restaurant::find(Auth::user()->id);
@@ -34,5 +32,13 @@ class Purchase extends Model
 			'max' => max($weeklyTotals),
 			'running' => $restaurant->purchases->sum('total')
 		];
+	}
+
+	/**
+	 * Link to user
+	 */
+	function user()
+	{
+		return $this->belongsTo('grubly\User');
 	}
 }

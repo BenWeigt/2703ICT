@@ -15,10 +15,16 @@ class Product extends Model
 		'restaurant_id', 'name', 'price', 'image'
 	];
 	
+	/**
+	 * Link to restaurant
+	 */
   function restaurant() {
 		return $this->belongsTo('grubly\Restaurant');
 	}
 
+	/**
+	 * Get all products in the currently logged in users cart
+	 */
 	public static function allInCart()
 	{
 		$cart = session('cart');
@@ -34,6 +40,10 @@ class Product extends Model
 		}
 		return $products;
 	}
+
+	/**
+	 * Get the total number of products in the currently logged in users cart
+	 */
 	public static function totalInCart()
 	{
 		$cart = session('cart');
@@ -47,6 +57,10 @@ class Product extends Model
 		}
 		return $count;
 	}
+
+	/**
+	 * Get the restaurant that the products in the currently logged in users cart belong to
+	 */
 	public static function cartRestaurant()
 	{
 		$cart = session('cart');
@@ -55,6 +69,9 @@ class Product extends Model
 		return Restaurant::find($cart['restaurant_id']);
 	}
 
+	/**
+	 * Add a product to the currently logged in users cart
+	 */
 	public static function addToCart(Product $product)
 	{
 		if (!empty(Auth::user()) && Auth::user()->can('addToCart', $product))
@@ -77,6 +94,9 @@ class Product extends Model
 		abort(418); // HTCPCP/1.0
 	}
 
+	/**
+	 * Remove a product to the currently logged in users cart
+	 */
 	public static function removeFromCart(Product $product)
 	{
 		if (!empty(Auth::user()) && Auth::user()->can('removeFromCart', $product))
@@ -89,11 +109,23 @@ class Product extends Model
 					unset($cart['products'][$product->id]);
 				else
 					$cart['products'][$product->id] -= 1;
-				session(['cart' => $cart]);
+
+				if (!count($cart['products']))
+					session(['cart' => null]);
+				else
+					session(['cart' => $cart]);
 			}
 			return view('components.cart');
 		}
 		abort(418); // HTCPCP/1.0
+	}
+
+	/**
+	 * Clear the currently logged in users cart
+	 */
+	public static function clearCart()
+	{
+		session(['cart'=>null]);
 	}
 
 	/**
@@ -118,10 +150,5 @@ class Product extends Model
 			$products[] = Product::find($productId);
 		}
 		return collect($products);
-	}
-
-	public static function clearCart()
-	{
-		session(['cart'=>null]);
 	}
 }
