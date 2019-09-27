@@ -19,6 +19,7 @@ class PurchasePolicy
 	 */
 	public function viewAny(User $user)
 	{
+		// Administrators can see all
 		return !!($user->type === 'administrator');
 	}
 
@@ -31,6 +32,7 @@ class PurchasePolicy
 	 */
 	public function view(User $user, Purchase $purchase)
 	{
+		// Administrators can see all, users can see their own purchases, restaurants can see all purchases made to them
 		return !!($user->type === 'administrator' || $purchase->user->id === $user->id || $purchase->restaurant->id === $user->id);
 	}
 
@@ -42,6 +44,7 @@ class PurchasePolicy
 	 */
 	public function create(User $user)
 	{
+		// Customers with products in their cart can purchase
 		return !!($user->type === 'customer' && count(Product::allInCart()));
 	}
 
@@ -54,6 +57,7 @@ class PurchasePolicy
 	 */
 	public function update(User $user, Purchase $purchase)
 	{
+		// Immutable
 		return false;
 	}
 
@@ -66,6 +70,7 @@ class PurchasePolicy
 	 */
 	public function delete(User $user, Purchase $purchase)
 	{
+		// Immutable
 		return false;
 	}
 
@@ -78,6 +83,7 @@ class PurchasePolicy
 	 */
 	public function restore(User $user, Purchase $purchase)
 	{
+		// Immutable
 		return false;
 	}
 
@@ -90,6 +96,7 @@ class PurchasePolicy
 	 */
 	public function forceDelete(User $user, Purchase $purchase)
 	{
+		// Immutable
 		return false;
 	}
 }

@@ -19,6 +19,8 @@ class RestaurantPolicy
 	 */
 	public function purchaseFrom(User $user, Restaurant $restaurant)
 	{
+		// Customers can purchase from verified restaurants if their cart does not contain products
+		// from another restaurant
 		$cart = session('cart');
 		if (!empty($cart) && $cart['restaurant_id'] !== $restaurant->id)
 			return false;
@@ -33,6 +35,7 @@ class RestaurantPolicy
 	 */
 	public function viewAny(User $user)
 	{
+		// Administrators can see all
 		return !!($user->type === 'administrator');
 	}
 
@@ -45,6 +48,7 @@ class RestaurantPolicy
 	 */
 	public function view(?User $user, Restaurant $restaurant)
 	{
+		// Anyone can view a verified restaurant, administrators can see all, restaurants can always see themselves
 		return !!($restaurant->verification || (!empty($user) && ($user->type === 'administrator' || $user->id === $restaurant->id)));
 	}
 
@@ -54,7 +58,7 @@ class RestaurantPolicy
 	 * @param  \grubly\User  $user
 	 * @return mixed
 	 */
-	public function create(User $user)
+	public function create(?User $user)
 	{
 		return !!(empty($user));
 	}

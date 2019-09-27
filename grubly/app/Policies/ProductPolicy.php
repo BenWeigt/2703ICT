@@ -20,6 +20,7 @@ class ProductPolicy
 	public function addToCart(User $user, Product $product)
 	{
 		// If the cart already contains items, only products from the same restaurant are valid
+		// (no split reciepts)
 		$cart = session('cart');
 		if (!empty($cart) && $cart['restaurant_id'] !== $product->restaurant->id)
 			return false;
@@ -34,6 +35,7 @@ class ProductPolicy
 	 */
 	public function removeFromCart(User $user)
 	{
+		// Customers can remove products from their cart
 		return !!($user->type === 'customer');
 	}
 
@@ -45,6 +47,7 @@ class ProductPolicy
 	 */
 	public function viewAny(User $user)
 	{
+		// Administrators can view any
 		return !!($user->type === 'administrator');
 	}
 
@@ -57,6 +60,7 @@ class ProductPolicy
 	 */
 	public function view(?User $user, Product $product)
 	{
+		// Anyone can view a product for a verified restaurant. Anyone who can view the products restaurant can view the product.
 		return !!($product->restaurant->verification || (!empty($user) && $user->can('view', $product->restaurant)));
 	}
 
@@ -68,6 +72,7 @@ class ProductPolicy
 	 */
 	public function create(User $user)
 	{
+		// User must be a verified restaurant
 		$restaurant = Restaurant::find($user->id);
 		return !!(!empty($restaurant) && $restaurant->verification);
 	}
@@ -81,6 +86,7 @@ class ProductPolicy
 	 */
 	public function update(User $user, Product $product)
 	{
+		// Product must be owned by the user/restaurant, and restaurant must be verified
 		return !!($user->id === $product->restaurant->id && $product->restaurant->verification);
 	}
 
@@ -93,6 +99,7 @@ class ProductPolicy
 	 */
 	public function delete(User $user, Product $product)
 	{
+		// Can delete if can update
 		return !!($user->can('update', $product));
 	}
 
@@ -105,7 +112,8 @@ class ProductPolicy
 	 */
 	public function restore(User $user, Product $product)
 	{
-		return !!($user->id === $product->restaurant->id);
+		// Outside assignment scope
+		return !!($user->can('update', $product));
 	}
 
 	/**
@@ -117,6 +125,7 @@ class ProductPolicy
 	 */
 	public function forceDelete(User $user, Product $product)
 	{
-		return !!($user->id === $product->restaurant->id);
+		// Outside assignment scope
+		return !!($user->can('update', $product));
 	}
 }
