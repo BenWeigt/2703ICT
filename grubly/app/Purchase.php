@@ -29,7 +29,7 @@ class Purchase extends Model
 		}
 		return [
 			'weekly' => $weeklyTotals,
-			'max' => max($weeklyTotals),
+			'max' => max($weeklyTotals) ?: 1,
 			'running' => $restaurant->purchases->sum('total')
 		];
 	}
