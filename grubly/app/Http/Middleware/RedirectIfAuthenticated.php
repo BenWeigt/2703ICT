@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
 		// page when auth process is complete.
 		if (Auth::guard($guard)->check()) {
 			session(['auth_redirectTo' => null]);
-			return back();
+			return back(); // @TODO for some edge cases, this is capable of producing a redirect loop
 		}
 		// Checks might be overly protective, but an infinite redirection loop would suck.
 		if (url()->previous() !== session('auth_previous') && url()->previous() !== url()->current())
