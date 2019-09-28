@@ -44,6 +44,7 @@
 
 		<h2>Peer review reflection</h2>
 		<p>
+			<a href="{{asset('pdf/peer_review.pdf')}}">Peer review for Grubly</a>
 			As a senior developer with experience in developing web application frameworks, my participation
 			in peer review was likely atypical of students participating in this course. The work I produced
 			hopefully offered little in way of opportunity for those reviewing it to find objective critique.
