@@ -14,7 +14,7 @@
 			features have been expanded on in some degree to improve their useability and present a more
 			integrated and seamless experience. In these cases, attention was paid to preserving sufficient 
 			demonstration of the laravel frameworks mechanisms as outlined in the course work, using a mixture 
-			of JS async fetch, dom manipulation and CSS techniques to blend together resources in a more
+			of JS async fetch, DOM manipulation and CSS techniques to blend together resources in a more
 			dynamic fashion.
 		</p>
 		<p>
