@@ -65,5 +65,7 @@
 			@include('components.cart')
 		</nav>
     @yield('content')
+
+		<a href="{{route('about')}}" style="float: right;margin: 0 60px 20px 0;text-align: right;font-size: 15px;">Documentation</a>
 	</body>
 </html>
