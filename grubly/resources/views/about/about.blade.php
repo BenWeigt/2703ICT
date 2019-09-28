@@ -5,7 +5,7 @@
 	<section style="padding: 50px;">
 		<h2>Documentation</h2>
 		<p>ER Diagram Via embed:</p>
-		<iframe width="560" height="315" src='https://dbdiagram.io/embed/5d8e1e41ff5115114db4b1ab'> </iframe>
+		<iframe width="1120" height="630" src='https://dbdiagram.io/embed/5d8e1e41ff5115114db4b1ab'> </iframe>
 		
 		<h2>Notes about Grubly</h2>
 		<p>
@@ -44,7 +44,7 @@
 
 		<h2>Peer review reflection</h2>
 		<p>
-			<a href="{{asset('pdf/peer_review.pdf')}}">Peer review for Grubly</a>
+			<a href="{{asset('pdf/peer_review.pdf')}}">Peer review for Grubly</a><br>
 			As a senior developer with experience in developing web application frameworks, my participation
 			in peer review was likely atypical of students participating in this course. The work I produced
 			hopefully offered little in way of opportunity for those reviewing it to find objective critique.
