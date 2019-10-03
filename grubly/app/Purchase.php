@@ -22,7 +22,7 @@ class Purchase extends Model
 		$weeklyTotals = [];
 		for ($i=0; $i < 12; $i++) {
 			$purchases = $restaurant->purchases()->whereBetween('created_at', [
-				\Carbon\Carbon::now()->subDays($i*7 +7)->startOfDay()->toDateTimeString(),
+				\Carbon\Carbon::now()->subDays($i*7 +7)->endOfDay()->toDateTimeString(),
 				\Carbon\Carbon::now()->subDays($i*7)->endOfDay()->toDateTimeString()
 			])->get();
 			$weeklyTotals[] = $purchases->sum('total');
